@@ -1,0 +1,41 @@
+<p>
+  Usando ReactiveForms, FeatureModules, LazyLoad fazer um CRUD de:
+</p>
+<ngb-accordion #acc="ngbAccordion">
+  <ngb-panel>
+    <ng-template ngbPanelTitle>
+      <b>Equipe 1</b>&nbsp;<i>Pessoa</i>
+    </ng-template>
+
+    <ng-template ngbPanelContent>
+      <p>Campos padrões</p>
+      <p>Validação de CPF</p>
+      <p><b>N</b> Telefones</p>
+    </ng-template>
+  </ngb-panel>
+  <ngb-panel>
+    <ng-template ngbPanelTitle>
+      <b>Equipe 2</b>&nbsp;<i>Empresa</i>
+    </ng-template>
+    <ng-template ngbPanelContent>
+        <p>Campos padrões</p>
+        <p>Validação de CNPJ</p>
+        <p><b>N</b> Endereços</p>
+    </ng-template>
+  </ngb-panel>
+  <ngb-panel>
+    <ng-template ngbPanelTitle>
+      <b>Equipe 3</b>&nbsp;<i>Produto</i>
+    </ng-template>
+    <ng-template ngbPanelContent>
+        <p>Campos padrões</p>
+        <p>Ao menos 1 categoria</p>
+        <p><b>N</b> Categorias</p>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>
+
+<p>
+  O CRUD deve começar pela tela de pesquisa, com a listagem páginada da Entidade.
+  <BR /> Deve ser possível pesquisar, visualizar, editar e adicionar um novo item.
+</p>
