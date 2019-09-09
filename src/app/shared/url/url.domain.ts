@@ -17,11 +17,13 @@ export namespace LoginURL {
 
 export namespace UserURL {
   export const BASE = 'user';
-  export const CHANGE_PASSWORD = 'change-password'
+  export const CHANGE_PASSWORD = 'change-password';
 }
 
 export namespace PessoaURL {
   export const BASE = 'pessoa';
+  export const EDIT_PESSOA = SERVER_URL + PessoaURL.BASE + '/edit/';
+  export const VIEW_PESSOA = SERVER_URL + PessoaURL.BASE + '/'
 }
 
 export namespace EmpresaURL {
