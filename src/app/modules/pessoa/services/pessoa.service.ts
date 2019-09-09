@@ -22,4 +22,22 @@ export class PessoaService extends BaseService implements IPessoaService{
       }));
   }
 
+  public delete(id: number): Observable<any> {
+    return this.get(PessoaURL.DELETE_PESSOA + id)
+    .pipe(map((result: any) => {
+      result.json();
+    }), catchError((error) => {
+      return empty();
+    }));
+  }
+
+  
+  update(id: number): Observable<any> {
+    throw new Error("Method not implemented.");
+  }
+  create(pessoa: any): Observable<any> {
+    throw new Error("Method not implemented.");
+  }
+
+
 }

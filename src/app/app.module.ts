@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { setAppInjector } from './app.injector';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedComponentsModule } from './shared/shared-components/shared-components.module';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    SharedComponentsModule,
     NgbModule.forRoot(),
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),

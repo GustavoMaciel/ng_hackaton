@@ -8,7 +8,6 @@ import { IPessoaService } from './Ipessoa.service';
 
 @Injectable()
 export class PessoaMockService extends BaseService implements IPessoaService{
-
   get: any = {
     'totalPages':1,
     'items': [
@@ -28,5 +27,23 @@ export class PessoaMockService extends BaseService implements IPessoaService{
       observable.complete();
     });
   }
+
+  public delete(id: number): Observable<any>{
+    return new Observable<any>(
+      (obs) => {
+        this.get["items"] = this.get["items"].filter(pes => pes.id !== id);
+        obs.next({"message": "Pessoa deletada com sucesso!", "status": 200});
+        obs.complete();
+      });
+  }
+
+  
+  update(id: number): Observable<any> {
+    throw new Error("Method not implemented.");
+  }
+  create(pessoa: any): Observable<any> {
+    throw new Error("Method not implemented.");
+  }
+
 
 }

@@ -23,7 +23,8 @@ export namespace UserURL {
 export namespace PessoaURL {
   export const BASE = 'pessoa';
   export const EDIT_PESSOA = SERVER_URL + PessoaURL.BASE + '/edit/';
-  export const VIEW_PESSOA = SERVER_URL + PessoaURL.BASE + '/'
+  export const VIEW_PESSOA = SERVER_URL + PessoaURL.BASE + '/';
+  export const DELETE_PESSOA = SERVER_URL + PessoaURL.BASE + '/delete/';
 }
 
 export namespace EmpresaURL {

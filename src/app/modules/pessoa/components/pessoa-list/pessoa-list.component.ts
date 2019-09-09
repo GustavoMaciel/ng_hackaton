@@ -42,6 +42,9 @@ export class PessoaListComponent extends BaseComponent {
     this.listPessoas();
   }
 
+  /**
+   * Gets the array of entities
+   */
   listPessoas(): void{
     this.loading = true;
     this.service.getPessoas()
@@ -57,22 +60,48 @@ export class PessoaListComponent extends BaseComponent {
     );
   }
 
+  /**
+   * Navigates to the edit route
+   * 
+   * @param {number} id 
+   */
   edit(id: number){
     this.navigate([this.getRouterURL(), 'edit', id ? id : '']);
     return false;
   }
 
+  /**
+   * Navigates to the view route
+   * 
+   * @param {number} id 
+   */
   view(id: number){
     this.navigate([this.getRouterURL(), 'view', id ? id : '']);
     return false;
   }
 
+  /**
+   * Navigates to the create route
+   */
   add(){
     this.navigate([this.getRouterURL(), 'create']);
     return false;
   }
 
+  /**
+   * Deletes the entity with the informed id
+   * 
+   * @param {number} id 
+   */
   delete(id: number){
+    this.service.delete(id)
+    .subscribe(
+      (result) => {
+        this.listPessoas();
+      }, (err) => {
+        console.log(err)
+      }
+    );
     return false;
   }
 
