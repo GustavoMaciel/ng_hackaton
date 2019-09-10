@@ -1,3 +1,46 @@
-<p>
-  pessoa-edit works!
-</p>
+<div class="card mx-5 my-3">
+    <h5 class="card-header">Cadastrar Pessoa</h5>
+    <div class="card-body">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+                <div class="form-group col-6">
+                    <label>Nome</label>
+                    <input type="text" formControlName="nome" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.nome.errors }" />
+                    <div *ngIf="submitted && form.nome.errors" class="invalid-feedback">
+                        <div *ngIf="form.nome.errors.required">O campo nome é obrigatório</div>
+                    </div>
+                </div>
+                <div class="form-group col-6">
+                    <label>Sobrenome</label>
+                    <input type="text" formControlName="sobrenome" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.sobrenome.errors }" />
+                    <div *ngIf="submitted && form.sobrenome.errors" class="invalid-feedback">
+                        <div *ngIf="form.sobrenome.errors.required">O campo sobrenome é obrigatório</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group col">
+                    <label>Email</label>
+                    <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.email.errors }" />
+                    <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
+                        <div *ngIf="form.email.errors.required">O campo email é obrigatório</div>
+                        <div *ngIf="form.email.errors.email">O campo email deve ser preenchido com um formato válido</div>
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <label>CPF</label>
+                    <input type="cpf" formControlName="cpf" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.cpf.errors }" />
+                    <div *ngIf="submitted && form.cpf.errors" class="invalid-feedback">
+                        <div *ngIf="form.cpf.errors.required">O campo CPF é obrigatório</div>
+                        <div *ngIf="form.cpf.errors.cpfValidator">O campo CPF deve ser preenchido com um formato válido</div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary mr-1">Adicionar</button>
+                <button class="btn btn-secondary" type="reset" (click)="onReset()">Resetar</button>
+            </div>
+        </form>
+    </div>
+</div>

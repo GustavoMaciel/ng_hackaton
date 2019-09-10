@@ -53,10 +53,11 @@ export class PessoaMockService extends BaseService implements IPessoaService{
       obs.complete();
     });
   }
-  
+
   create(pessoa: Pessoa): Observable<any> {
     return new Observable<any>(
       (obs) => {
+        pessoa.id = ++this.lastId;
         this.mock.push(pessoa);
         obs.next(pessoa);
         obs.complete();
