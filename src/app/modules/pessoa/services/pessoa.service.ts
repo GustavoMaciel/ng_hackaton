@@ -31,6 +31,10 @@ export class PessoaService extends BaseService implements IPessoaService{
     }));
   }
 
+  getById(id: number): Observable<any> {
+    throw new Error("Method not implemented");
+  }
+
   
   update(pessoa: Pessoa): Observable<any> {
     throw new Error("Method not implemented.");

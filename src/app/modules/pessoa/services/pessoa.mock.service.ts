@@ -38,8 +38,13 @@ export class PessoaMockService extends BaseService implements IPessoaService{
       });
   }
 
-  getById(id: number): Pessoa{
-    return null;
+  getById(id: number): Observable<any>{
+    return new Observable<any>(
+      (obs) => {
+        const pessoa: Pessoa = this.mock.filter(pes => pes.id === id).pop();
+        obs.next(pessoa);
+        obs.complete();
+      });
   }
   
   update(newPessoa: Pessoa): Observable<any> {
