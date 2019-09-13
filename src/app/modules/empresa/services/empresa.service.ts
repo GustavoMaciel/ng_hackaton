@@ -16,6 +16,9 @@ export class EmpresaService extends BaseService implements IEmpresaService {
     delete(id: number): Observable<any>{
         throw new Error("Method not implemented.");
     }
+    getById(id: number): Observable<any> {
+        throw new Error("Method not implemented.");
+    }
 
 
 }
