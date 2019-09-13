@@ -1,3 +1,37 @@
-<p>
-  empresa-view works!
-</p>
+<div class="container">
+  <div class="row">
+      <form>
+        <div class="form-row mb-3">
+          <div class="col-md-7">
+            <label for="">Nome Fantasia</label>
+            <h5 class="data">{{company.fancyName}}</h5>
+          </div>
+
+          <div class="col-md-5">
+            <label for="">CNPJ</label>
+            <h5 class="data">{{company.cnpj}}</h5>
+          </div>
+
+          <div class="col-md-12">
+            <label for="">Nossa Visão</label>
+            <p class="data">{{company.vision}}</p>
+          </div>
+
+          <div class="col-md-12">
+            <label for="">Nossa Missão</label>
+            <p class="data">{{company.mission}}</p>
+          </div>
+        </div>
+  
+        <div class="form-group mb-3" id="endereco">
+          <div class="row ml-n3">
+            <div *ngFor="let endereco of company.enderecos; let i = index" class="col-md-6">
+              <label class="mr-1">Endereco {{i+1}}:</label>
+              <h5 class="mr-1 data">{{endereco.city}} - {{endereco.state}}</h5>
+              <h5 class="mr-1 data">{{endereco.street}}, {{endereco.number}} - {{endereco.neighborhood}}</h5>
+            </div>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>
