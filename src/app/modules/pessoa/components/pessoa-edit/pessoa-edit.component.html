@@ -1,7 +1,7 @@
 <div class="card mx-5 my-3">
     <h5 class="card-header">Cadastrar Pessoa</h5>
     <div class="card-body">
-        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
             <div class="form-row">
                 <div class="form-group col-6">
                     <label>Nome</label>
@@ -37,10 +37,46 @@
                     </div>
                 </div>
             </div>
+
+            <a href="##" (click)="onAddPhoneClick()">+Phone</a>
+            <div>
+                <div *ngFor="let phone of phoneForms.controls; let i = index" class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <h6 class="card-title">Phone {{i + 1}}</h6> <a class="float-right" href="##" (click)="deletePhoneCard(i)">-Del</a>
+                        <div [formGroup]="phone" class="form-row">
+                            <div class="form-group col-2">
+                                <label>Country Code:</label>
+                                <input type="text" formControlName="countryCode" class="form-control" [ngClass]="{ 'is-invalid': submitted && phone.controls.countryCode.errors }" />
+                                <div *ngIf="submitted && phone.controls.countryCode.errors" class="invalid-feedback">
+                                    <div *ngIf="phone.controls.countryCode.errors.required">Country code is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group col-1">
+                                <label>DDD</label>
+                                <input type="text" formControlName="ddd" class="form-control" [ngClass]="{ 'is-invalid': submitted && phone.controls.ddd.errors }" />
+                                <div *ngIf="submitted && phone.controls.ddd.errors" class="invalid-feedback">
+                                    <div *ngIf="phone.controls.ddd.errors.required">DDD is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group col-5">
+                                <label>Number</label>
+                                <input type="text" formControlName="number" class="form-control" [ngClass]="{ 'is-invalid': submitted && phone.controls.number.errors }" />
+                                <div *ngIf="submitted && phone.controls.number.errors" class="invalid-feedback">
+                                    <div *ngIf="phone.controls.number.errors.required">Number is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+
+
             <div class="text-center">
                 <button class="btn btn-primary mr-1">Adicionar</button>
                 <button class="btn btn-secondary" type="reset" (click)="onReset()">Resetar</button>
             </div>
         </form>
+
     </div>
 </div>

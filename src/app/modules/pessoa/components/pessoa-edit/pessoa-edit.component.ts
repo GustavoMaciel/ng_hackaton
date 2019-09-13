@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import {isCPF} from 'brazilian-values';
 import { PessoaService } from '../../services/pessoa.service';
 import { Pessoa } from '../../pessoa';
 import { BaseComponent } from 'src/app/shared/shared-components/base.component';
 import { ActivatedRoute } from '@angular/router';
+import { Telefone } from '../../telefone';
 
 @Component({
   selector: 'app-pessoa-edit',
@@ -13,10 +14,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PessoaEditComponent extends BaseComponent {
 
-  /**
+  /**Pessoa FormGroup
    * @type {FormGroup}
    */
-  registerForm: FormGroup;
+  formGroup: FormGroup;
+  /**Telefone FormGroup
+   * @type {FormGroup}
+   */
+  phoneForm: FormGroup
   /**
    * If the form was already submitted
    * @type {boolean}
@@ -32,6 +37,7 @@ export class PessoaEditComponent extends BaseComponent {
    * @type {Pessoa}
    */
   pessoa: Pessoa = null;
+ 
 
   /**
    * Constructor with injectables
@@ -56,10 +62,7 @@ export class PessoaEditComponent extends BaseComponent {
       this.setPessoa(id);
     }
 
-    this.registerForm = this.formBuilder.group(
-      this.generateForm() ,{
-      validator: this.CPFValidator('cpf')
-    });
+    this.generateFormPessoa();
   }
 
   /**
@@ -73,31 +76,52 @@ export class PessoaEditComponent extends BaseComponent {
     });
   }
 
+  populatePhoneFormArray(): void{
+    for(let phone of this.pessoa.telefones){
+      this.phoneForms.push(this.formBuilder.group({
+        countryCode: [phone.countryCode, Validators.required],
+        ddd: [phone.ddd, Validators.required],
+        number: [phone.number, Validators.required]
+      }));
+    }    
+  }
+
   /**
    * Return a new Object to be used in the formBuilder
    * If it's editing will build the object using the pessoa variable fields
    */
-  generateForm(): Object {
-    if(!this.isEditing){
-      return {
-        nome: ['', Validators.required],
-        sobrenome: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
-        cpf: ['', [Validators.required]]
-      };
+  generateFormPessoa(): void {
+    if(this.isEditing){
+      this.formGroup = this.formBuilder.group(
+        {
+          nome: [this.pessoa.nome, Validators.required],
+          sobrenome: [this.pessoa.sobrenome, Validators.required],
+          email: [this.pessoa.email, [Validators.required, Validators.email]],
+          cpf: [this.pessoa.cpf, [Validators.required]],
+          phones: new FormArray([])
+        },
+        {validator: this.CPFValidator('cpf')}
+      );
+      this.populatePhoneFormArray();
+    } else {
+      this.formGroup = this.formBuilder.group(
+        {
+          nome: ['', Validators.required],
+          sobrenome: ['', Validators.required],
+          email: ['', [Validators.required, Validators.email]],
+          cpf: ['', [Validators.required]],
+          phones: new FormArray([])
+        },
+        {validator: this.CPFValidator('cpf')}
+      );
     }
-    return {
-      nome: [this.pessoa.nome, Validators.required],
-      sobrenome: [this.pessoa.sobrenome, Validators.required],
-      email: [this.pessoa.email, [Validators.required, Validators.email]],
-      cpf: [this.pessoa.cpf, [Validators.required]]
-    };
   }
 
   /**
-   * To easier access the form fields
+   * Convenience getters to access the form fields
    */
-  get form () {return this.registerForm.controls}
+  get form () {return this.formGroup.controls}
+  get phoneForms () {return this.form.phones as FormArray}
 
   /**
    * Generates a new validator for the FormGroup to validate if the informed CPF is valid
@@ -119,39 +143,96 @@ export class PessoaEditComponent extends BaseComponent {
   }
 
   /**
+   * Saves all the phones of the informed Pessoa
+   * 
+   * @param {Pessoa} person 
+   */
+  saveNewPhones(person: Pessoa): void{
+    person.telefones = []
+    for(let phone of this.phoneForms.controls){
+      console.log(phone.value.countryCode);
+      person.telefones.push(
+        new Telefone(this.pessoa.id,
+          phone.value.countryCode, 
+          phone.value.ddd, 
+          phone.value.number)
+        )
+    }
+  }
+
+  /**
    * Method to deal with form submission
    */
   onSubmit() {
     this.submitted = true;
     
-    if(this.registerForm.invalid){
+    if(this.formGroup.invalid){
       return;
     }
-    if(this.isEditing){
 
+    if(this.isEditing){
+      this.saveNewPhones(this.pessoa);
+      this.service.update(this.pessoa).subscribe((res) => {
+        this.navigate(['pessoa', 'view', this.pessoa.id]);
+      });
     } else {
       this.pessoa = new Pessoa(
         0, this.form.nome.value, this.form.sobrenome.value, this.form.email.value, this.form.cpf.value
         );
+
+      this.saveNewPhones(this.pessoa);
       this.service.create(this.pessoa).subscribe((result) => {
-      this.navigate(['pessoa']);
+        this.navigate(['pessoa']);
       });
     }
   }
 
   /**
-   * If the variable pessoa is not null, then it's edit mode, it'll be create mode otherwise
+   * Adds a new phone card in the phone array
    */
-  getRouterURL(): string{
-    return this.pessoa ? "edit" : "create";
+  onAddPhoneClick(){
+    this.phoneForms.push(this.formBuilder.group(
+      {
+        countryCode: ['', Validators.required],
+        ddd: ['', Validators.required],
+        number: ['', Validators.required]
+      }
+    ));
+
+    return false;
+  }
+
+  /**
+   * Deletes the phone card with the informed index
+   * 
+   * @param {number} index 
+   */
+  deletePhoneCard(index:number){
+    this.phoneForms.removeAt(index);
+    return false;
   }
 
   /**
    * Method to deal with form reset
    */
   onReset() {
+    if(this.isEditing){
+      return;
+    }
     this.submitted = false;
-    this.registerForm.reset();
+    this.formGroup.reset();
+    while (this.phoneForms.length !== 0){
+      this.phoneForms.removeAt(0);
+    }
+  }
+
+
+
+  /**
+   * If the variable pessoa is not null, then it's edit mode, it'll be create mode otherwise
+   */
+  getRouterURL(): string{
+    return this.pessoa ? "edit" : "create";
   }
 
 }
