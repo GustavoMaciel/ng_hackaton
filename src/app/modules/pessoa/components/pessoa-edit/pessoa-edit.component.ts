@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl } from '@angular/forms';
 import {isCPF} from 'brazilian-values';
 import { PessoaService } from '../../services/pessoa.service';
 import { Pessoa } from '../../pessoa';
@@ -37,6 +37,8 @@ export class PessoaEditComponent extends BaseComponent {
    * @type {Pessoa}
    */
   pessoa: Pessoa = null;
+
+  deletedPhones: Telefone[] = []
  
 
   /**
@@ -76,6 +78,9 @@ export class PessoaEditComponent extends BaseComponent {
     });
   }
 
+  /**
+   * Populate the FormArray with the existent phones
+   */
   populatePhoneFormArray(): void{
     for(let phone of this.pessoa.telefones){
       this.phoneForms.push(this.formBuilder.group({
@@ -208,6 +213,14 @@ export class PessoaEditComponent extends BaseComponent {
    * @param {number} index 
    */
   deletePhoneCard(index:number){
+    const deletedPhone: any = this.phoneForms.at(index).value;
+    for(let phone of this.pessoa.telefones){
+      if(deletedPhone.countryCode === phone.countryCode 
+        && deletedPhone.ddd === phone.ddd && deletedPhone.number === phone.number){
+          this.deletedPhones.push(phone);
+          break;
+        }
+    }
     this.phoneForms.removeAt(index);
     return false;
   }

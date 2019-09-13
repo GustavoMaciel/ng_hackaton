@@ -1,5 +1,7 @@
 <div class="card mx-5 my-3">
-    <h5 class="card-header">Cadastrar Pessoa</h5>
+    <h5 *ngIf="!isEditing; else headerEditing" class="card-header">Cadastrar Pessoa</h5>
+    <ng-template #headerEditing><h5 class="card-header">Atualizar {{pessoa.nome}} {{pessoa.sobrenome}}</h5></ng-template>
+    
     <div class="card-body">
         <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
             <div class="form-row">
@@ -73,8 +75,10 @@
 
 
             <div class="text-center">
-                <button class="btn btn-primary mr-1">Adicionar</button>
-                <button class="btn btn-secondary" type="reset" (click)="onReset()">Resetar</button>
+                <button *ngIf="!isEditing; else buttonEditing" class="btn btn-primary mr-1">Adicionar</button>
+                <ng-template #buttonEditing><button class="btn btn-primary mr-1">Atualizar</button></ng-template>
+                
+                <button *ngIf="!isEditing" class="btn btn-secondary" type="reset" (click)="onReset()">Resetar</button>
             </div>
         </form>
 
