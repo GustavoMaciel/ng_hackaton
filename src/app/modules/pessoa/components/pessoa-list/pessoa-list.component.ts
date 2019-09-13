@@ -102,7 +102,7 @@ export class PessoaListComponent extends BaseComponent {
         console.log(err)
       }
     );
-    return false;
+    
   }
 
   protected getRouterURL(): string{
