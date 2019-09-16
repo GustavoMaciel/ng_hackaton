@@ -7,5 +7,6 @@ export interface IPessoaService {
     update(newPessoa: Pessoa): Observable<any>;
     patch(pessoa: Pessoa): Observable<any>;
     create(pessoa: Pessoa): Observable<any>;
+    getById(id: number): Observable<any>;
 
 }
