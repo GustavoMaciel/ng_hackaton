@@ -16,7 +16,7 @@ export class EmpresaMockService extends BaseService implements IEmpresaService {
         super();
     }
 
-    getEmpresas(): Observable<any> {
+    getAll(): Observable<any> {
         return new Observable<any>((obs) => {
             obs.next({
             "totalPages": 1,

@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { Empresa } from '../empresa';
 
 export interface IEmpresaService {
-    getEmpresas(): Observable<any>;
+    getAll(): Observable<any>;
     delete(id: number): Observable<any>;
     update(newEmpresa: Empresa): Observable<any>;
     patch(empresa: Empresa): Observable<any>;

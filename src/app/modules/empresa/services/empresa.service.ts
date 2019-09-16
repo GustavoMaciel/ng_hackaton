@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Empresa } from '../empresa';
 
 export class EmpresaService extends BaseService implements IEmpresaService {
-    getEmpresas(): Observable<any> {
+    getAll(): Observable<any> {
         throw new Error("Method not implemented.");
     }
     update(newEmpresa: Empresa): Observable<any> {

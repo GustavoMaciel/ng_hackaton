@@ -6,11 +6,13 @@ import { EmpresaViewComponent } from './components/empresa-view/empresa-view.com
 import { EmpresaRoutingModule } from './empresa-routing.module';
 import { EmpresaService } from './services/empresa.service';
 import { EmpresaMockService } from './services/empresa.mock.service';
+import { SharedComponentsModule } from 'src/app/shared/shared-components/shared-components.module';
 
 @NgModule({
   declarations: [EmpresaListComponent, EmpresaEditComponent, EmpresaViewComponent],
   imports: [
     CommonModule,
+    SharedComponentsModule,
     EmpresaRoutingModule
   ],
   providers: [

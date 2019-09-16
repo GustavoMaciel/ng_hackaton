@@ -1,15 +1,28 @@
 import { Component, OnInit } from '@angular/core';
+import { BaseListComponent } from 'src/app/shared/shared-components/base-list.component';
+import { EmpresaService } from '../../services/empresa.service';
 
 @Component({
   selector: 'app-empresa-list',
   templateUrl: './empresa-list.component.html',
   styleUrls: ['./empresa-list.component.scss']
 })
-export class EmpresaListComponent implements OnInit {
+export class EmpresaListComponent extends BaseListComponent {
 
-  constructor() { }
+  constructor(private service: EmpresaService) { super(); }
 
   ngOnInit() {
+    super.ngOnInit();
+    this.listItems(this.service);
+  }
+
+
+  protected getRouterURL(): string {
+    return 'empresa';
+  }
+
+  get companies() {
+    return this.items;
   }
 
 }
