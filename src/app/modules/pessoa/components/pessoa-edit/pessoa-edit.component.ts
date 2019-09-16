@@ -6,13 +6,14 @@ import { Pessoa } from '../../pessoa';
 import { BaseComponent } from 'src/app/shared/shared-components/base.component';
 import { ActivatedRoute } from '@angular/router';
 import { Telefone } from '../../telefone';
+import { BaseEditComponent } from 'src/app/shared/shared-components/base-edit.component';
 
 @Component({
   selector: 'app-pessoa-edit',
   templateUrl: './pessoa-edit.component.html',
   styleUrls: ['./pessoa-edit.component.scss']
 })
-export class PessoaEditComponent extends BaseComponent {
+export class PessoaEditComponent extends BaseEditComponent {
 
   /**Pessoa FormGroup
    * @type {FormGroup}
@@ -22,21 +23,6 @@ export class PessoaEditComponent extends BaseComponent {
    * @type {FormGroup}
    */
   phoneForm: FormGroup
-  /**
-   * If the form was already submitted
-   * @type {boolean}
-   */
-  submitted: boolean = false;
-  /**
-   * if it is edit or create
-   * @type {boolean}
-   */
-  isEditing: boolean = false;
-  /**
-   * The Pessoa object is null if it's on create mode
-   * @type {Pessoa}
-   */
-  pessoa: Pessoa = null;
 
   deletedPhones: Telefone[] = []
  
@@ -48,34 +34,15 @@ export class PessoaEditComponent extends BaseComponent {
    * @param service 
    * @param route 
    */
-  constructor(private formBuilder: FormBuilder, private service: PessoaService, private route: ActivatedRoute) { super(); }
-
-  /**
-   * Get id if there's one
-   * If there's an id will set the pessoa variable to a Pessoa object
-   * Will then generate a new FormGroup
-   */
-  ngOnInit() {
-    super.ngOnInit();
-    const id: number = +this.route.snapshot.paramMap.get("id");
-
-    if(id){
-      this.isEditing = true;
-      this.setPessoa(id);
-    }
-
-    this.generateFormPessoa();
+  constructor(formBuilder: FormBuilder, servicePessoa: PessoaService, route: ActivatedRoute) { 
+    super(formBuilder, route, servicePessoa); 
   }
 
   /**
-   * Set the pessoa var into a Pessoa object with the informed id
-   * 
-   * @param {number} id 
+   * Calls super class' ngOnInit
    */
-  setPessoa(id: number): void{
-    this.service.getById(id).subscribe((result) => {
-      this.pessoa = result;
-    });
+  ngOnInit() {
+    super.ngOnInit();
   }
 
   /**
@@ -88,14 +55,14 @@ export class PessoaEditComponent extends BaseComponent {
         ddd: [phone.ddd, Validators.required],
         number: [phone.number, Validators.required]
       }));
-    }    
+    } 
   }
 
   /**
    * Return a new Object to be used in the formBuilder
    * If it's editing will build the object using the pessoa variable fields
    */
-  generateFormPessoa(): void {
+  generateForm(): void {
     if(this.isEditing){
       this.formGroup = this.formBuilder.group(
         {
@@ -127,6 +94,12 @@ export class PessoaEditComponent extends BaseComponent {
    */
   get form () {return this.formGroup.controls}
   get phoneForms () {return this.form.phones as FormArray}
+  get pessoa() { return this.item }
+
+  /**
+   * Convenience setters
+   */
+  set pessoa(pessoa: Pessoa) { this.item = pessoa }
 
   /**
    * Generates a new validator for the FormGroup to validate if the informed CPF is valid
