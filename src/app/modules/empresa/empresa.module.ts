@@ -8,9 +8,15 @@ import { EmpresaService } from './services/empresa.service';
 import { EmpresaMockService } from './services/empresa.mock.service';
 import { SharedComponentsModule } from 'src/app/shared/shared-components/shared-components.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CNPJ } from './pipes/empresa.pipes';
 
 @NgModule({
-  declarations: [EmpresaListComponent, EmpresaEditComponent, EmpresaViewComponent],
+  declarations: [
+    EmpresaListComponent, 
+    EmpresaEditComponent, 
+    EmpresaViewComponent,
+    CNPJ
+  ],
   imports: [
     CommonModule,
     FormsModule,
