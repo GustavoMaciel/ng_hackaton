@@ -12,7 +12,7 @@ export class PessoaService extends BaseService implements IPessoaService{
     super();
    }
 
-  public getPessoas(): Observable<any>{
+  public getAll(): Observable<any>{
     return this.get(PessoaURL.BASE)
     .pipe(map((result: any) => {
           result.json();

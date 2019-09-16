@@ -29,7 +29,7 @@ export class PessoaMockService extends BaseService implements IPessoaService{
     super();
    }
 
-  public getPessoas(): Observable<any>{
+  public getAll(): Observable<any>{
     return new Observable<any>((observable) => {
       observable.next({
         "totalPages": 1,
