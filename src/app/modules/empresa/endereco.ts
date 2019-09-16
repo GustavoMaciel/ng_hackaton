@@ -21,4 +21,13 @@ export class Endereco {
         return this;
     }
 
+    equals(other: any): boolean{
+        if(this.city !== other.city && this.state !== other.state 
+            && this.street !== other.street && this.number !== other.number && this.neighborhood !== other.neighborhood){
+                return false;
+            } else {
+                return true;
+            }
+    }
+
 }

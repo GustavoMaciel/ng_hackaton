@@ -1,3 +1,104 @@
-<p>
-  empresa-edit works!
-</p>
+<div class="card mx-5 my-3">
+  <h5 *ngIf="!isEditing; else headerEditing" class="card-header">Cadastrar Empresa</h5>
+  <ng-template #headerEditing><h5 class="card-header">Atualizar {{company.fancyName}}</h5></ng-template>
+  
+  <div class="card-body">
+      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+              <div class="form-group col-6">
+                  <label>Nome Fantasia</label>
+                  <input type="text" formControlName="fancyName" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.fancyName.errors }" />
+                  <div *ngIf="submitted && form.fancyName.errors" class="invalid-feedback">
+                      <div *ngIf="form.fancyName.errors.required">O campo nome fantasia é obrigatório</div>
+                  </div>
+              </div>
+              <div class="form-group col-6">
+                <label>CNPJ</label>
+                <input type="cnpj" formControlName="cnpj" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.cnpj.errors }" />
+                <div *ngIf="submitted && form.cnpj.errors" class="invalid-feedback">
+                    <div *ngIf="form.cnpj.errors.required">O campo CNPJ é obrigatório</div>
+                    <div *ngIf="form.cnpj.errors.cnpjValidator">O campo CNPJ deve ser preenchido com um formato válido</div>
+                </div>
+            </div>
+              <div class="form-group col">
+                  <label>Missão</label>
+                  <textarea type="text" formControlName="mission" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.mission.errors }"></textarea>
+                  <div *ngIf="submitted && form.mission.errors" class="invalid-feedback">
+                      <div *ngIf="form.mission.errors.required">O campo missão é obrigatório</div>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="form-row">
+              <div class="form-group col">
+                  <label>Visão</label>
+                  <textarea type="text" formControlName="vision" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.vision.errors }"></textarea>
+                  <div *ngIf="submitted && form.vision.errors" class="invalid-feedback">
+                      <div *ngIf="form.vision.errors.required">O campo visão é obrigatório</div>
+                  </div>
+              </div>
+          </div>
+
+          <a href="##" (click)="onAddAddressClick()">+Endereço</a>
+          <div>
+              <div *ngFor="let address of addressForms.controls; let i = index" class="list-group list-group-flush">
+                  <div class="list-group-item">
+                      <h6 class="card-title">Endereço {{i + 1}}</h6> <a class="float-right" href="##" (click)="deleteAddressCard(i)">-Del</a>
+                      <div [formGroup]="address" class="form-row">
+                          <div class="form-group col-2">
+                              <label>Estado:</label>
+                              <input type="text" formControlName="state" class="form-control" [ngClass]="{ 'is-invalid': submitted && address.controls.state.errors }" />
+                              <div *ngIf="submitted && address.controls.state.errors" class="invalid-feedback">
+                                  <div *ngIf="address.controls.state.errors.required">O campo estado é obrigatóro</div>
+                              </div>
+                          </div>
+
+                          <div class="form-group col-2">
+                              <label>Cidade</label>
+                              <input type="text" formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': submitted && address.controls.city.errors }" />
+                              <div *ngIf="submitted && address.controls.city.errors" class="invalid-feedback">
+                                  <div *ngIf="address.controls.city.errors.required">O campo cidade é obrigatório</div>
+                              </div>
+                          </div>
+
+                          <div class="form-group col-5">
+                              <label>Rua</label>
+                              <input type="text" formControlName="street" class="form-control" [ngClass]="{ 'is-invalid': submitted && address.controls.street.errors }" />
+                              <div *ngIf="submitted && address.controls.street.errors" class="invalid-feedback">
+                                  <div *ngIf="address.controls.street.errors.required">O campo rua é obrigatório</div>
+                              </div>
+                          </div>
+
+                          <div class="form-group col-3">
+                            <label>Numero</label>
+                            <input type="text" formControlName="number" class="form-control" [ngClass]="{ 'is-invalid': submitted && address.controls.number.errors }" />
+                            <div *ngIf="submitted && address.controls.number.errors" class="invalid-feedback">
+                                <div *ngIf="address.controls.number.errors.required">O campo número é obrigatório</div>
+                            </div>
+                        </div>
+
+                          <div class="form-group col-5">
+                            <label>Bairro</label>
+                            <input type="text" formControlName="neighborhood" class="form-control" [ngClass]="{ 'is-invalid': submitted && address.controls.neighborhood.errors }" />
+                            <div *ngIf="submitted && address.controls.neighborhood.errors" class="invalid-feedback">
+                                <div *ngIf="address.controls.neighborhood.errors.required">O campo bairro é obrigatório</div>
+                            </div>
+
+                        </div>
+                      </div>
+                  </div>
+              </div>
+      
+          </div>
+
+
+          <div class="text-center">
+              <button *ngIf="!isEditing; else buttonEditing" class="btn btn-primary mr-1">Adicionar</button>
+              <ng-template #buttonEditing><button class="btn btn-primary mr-1">Atualizar</button></ng-template>
+              
+              <button *ngIf="!isEditing" class="btn btn-secondary" type="reset" (click)="onReset()">Resetar</button>
+          </div>
+      </form>
+
+  </div>
+</div>
