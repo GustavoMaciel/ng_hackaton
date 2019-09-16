@@ -3,7 +3,7 @@ import { BaseEditComponent } from 'src/app/shared/shared-components/base-edit.co
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { EmpresaService } from '../../services/empresa.service';
 import { ActivatedRoute } from '@angular/router';
-import { Endereco } from '../../endereco';
+import { Endereco, ESTADOS } from '../../endereco';
 import { Empresa } from '../../empresa';
 import { isCNPJ } from 'brazilian-values';
 
@@ -39,6 +39,7 @@ export class EmpresaEditComponent extends BaseEditComponent {
   get form() { return this.formGroup.controls }
   get addressForms() { return this.form.addresses as FormArray }
   get company() { return this.item }
+  get states() { return ESTADOS }
 
   /**
    * Convenience setters

@@ -47,7 +47,9 @@
                       <div [formGroup]="address" class="form-row">
                           <div class="form-group col-2">
                               <label>Estado:</label>
-                              <input type="text" formControlName="state" class="form-control" [ngClass]="{ 'is-invalid': submitted && address.controls.state.errors }" />
+                              <select formControlName="state" class="form-control" [ngClass]="{ 'is-invalid': submitted && address.controls.state.errors }">
+                                  <option *ngFor="let state of states" value="{{state}}">{{state}}</option>                                
+                              </select>
                               <div *ngIf="submitted && address.controls.state.errors" class="invalid-feedback">
                                   <div *ngIf="address.controls.state.errors.required">O campo estado é obrigatóro</div>
                               </div>
