@@ -9,9 +9,15 @@ import { PessoaMockService } from './services/pessoa.mock.service';
 import { SharedComponentsModule } from 'src/app/shared/shared-components/shared-components.module';
 import { BasicSearchComponent } from 'src/app/shared/shared-components/basic-search/basic-search.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CPF } from './pipes/pessoa.pipes';
 
 @NgModule({
-  declarations: [PessoaListComponent, PessoaEditComponent, PessoaViewComponent],
+  declarations: [
+    PessoaListComponent, 
+    PessoaEditComponent, 
+    PessoaViewComponent,
+    CPF
+  ],
   imports: [
     CommonModule,
     FormsModule,
