@@ -11,8 +11,8 @@ import { BaseListComponent } from 'src/app/shared/shared-components/base-list.co
 })
 export class PessoaListComponent extends BaseListComponent {
 
-  
-  
+
+
   //private service: PessoaService = AppInjector.get(PessoaService)
 
   constructor(private service: PessoaService) { super(); }
@@ -22,11 +22,11 @@ export class PessoaListComponent extends BaseListComponent {
     this.listItems(this.service);
   }
 
-  protected getRouterURL(): string{
+  protected getRouterURL(): string {
     return 'pessoa';
   }
 
-  get pessoas(){
+  get pessoas() {
     return this.items;
   }
 }
