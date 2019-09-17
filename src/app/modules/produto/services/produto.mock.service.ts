@@ -5,7 +5,7 @@ import { PRODUTOS } from './mock.data';
 
 export class ProdutoMockService implements IProdutoService {
 
-    private lastId: number = 1
+    private lastId: number = 2
     private mock: Produto[] = PRODUTOS;
 
     getAll(): Observable<any> {
@@ -63,10 +63,10 @@ export class ProdutoMockService implements IProdutoService {
         );
     }
     
-    getCategory(code: string): Observable<any>{
+    getCategory(name: string): Observable<any>{
         return new Observable<any>(
             (obs) => {
-                const category: Categoria = CATEGORIES.filter(cat => cat.code === code).pop();
+                const category: Categoria = CATEGORIES.filter(cat => cat.name === name).pop();
                 obs.next(category);
                 obs.complete();
             });

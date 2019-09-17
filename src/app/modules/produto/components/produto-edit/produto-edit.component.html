@@ -53,13 +53,10 @@
 
                                 <select formControlName="name" class="form-control"
                                     [ngClass]="{ 'is-invalid': submitted && category.controls.name.errors }">
-                                    <option *ngFor="let categoryName of categoryNames" value="{{categoryName}}">
+                                    <option *ngFor="let categoryName of categoryNames" value="{{categoryName.name}}">
                                         {{categoryName.name}}
                                     </option>
                                 </select>
-
-                                <input type="hidden" formControlName="code"
-                                    [ngClass]="{ 'is-invalid': submitted && category.controls.code.errors }" />
 
                                 <div *ngIf="submitted && (category.controls.name.errors || category.controls.name.errors)"
                                     class="invalid-feedback">

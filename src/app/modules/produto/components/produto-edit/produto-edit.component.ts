@@ -59,7 +59,6 @@ export class ProdutoEditComponent extends BaseEditComponent {
     populateCategoryFormArray(): void {
         for (let category of this.product.categories) {
             this.categoryForms.push(this.formBuilder.group({
-                code: [category.code, Validators.required],
                 name: [category.name, Validators.required],
             }));
         }
@@ -101,9 +100,8 @@ export class ProdutoEditComponent extends BaseEditComponent {
         product.categories = []
         let i = 0;
         for (let category of this.categoryForms.controls) {
-            console.log(category.value.countryCode);
             let cat: Categoria = null
-            this.service.getCategory(category.value.code).subscribe(res => { cat = res; }, err => console.log(err));
+            this.service.getCategory(category.value.name).subscribe(res => { cat = res; }, err => console.log(err));
 
             if (cat) {
                 product.categories.push(cat)
@@ -131,6 +129,10 @@ export class ProdutoEditComponent extends BaseEditComponent {
         this.saveNewCategories(this.product);
 
         if (this.isEditing) {
+            this.product.name = this.form.name.value;
+            this.product.description = this.form.description.value;
+            this.product.value = this.form.value.value;
+            
             this.service.update(this.product).subscribe(result => {
                 this.navigate(['produto', 'view', this.product.id]);
             }, err => {
@@ -151,7 +153,6 @@ export class ProdutoEditComponent extends BaseEditComponent {
     onAddCategoryClick() {
         this.categoryForms.push(this.formBuilder.group(
             {
-                code: ['', Validators.required],
                 name: ['', Validators.required],
             }
         ));
