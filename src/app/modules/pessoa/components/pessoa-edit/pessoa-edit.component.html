@@ -1,6 +1,6 @@
 <div class="card mx-5 my-3">
     <h5 *ngIf="!isEditing; else headerEditing" class="card-header">Cadastrar Pessoa</h5>
-    <ng-template #headerEditing><h5 class="card-header">Atualizar {{pessoa.nome}} {{pessoa.sobrenome}}</h5></ng-template>
+    <ng-template #headerEditing><h5 class="card-header">Atualizar {{person.nome}} {{person.sobrenome}}</h5></ng-template>
     
     <div class="card-body">
         <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">

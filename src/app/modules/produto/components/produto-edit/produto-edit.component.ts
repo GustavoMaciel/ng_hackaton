@@ -112,6 +112,18 @@ export class ProdutoEditComponent extends BaseEditComponent {
         }
     }
 
+    updateProduct(){
+        this.product.name = this.form.name.value;
+        this.product.description = this.form.description.value;
+        this.product.value = this.form.value.value;
+
+        this.service.update(this.product).subscribe(result => {
+            this.navigate(['produto', 'view', this.product.id]);
+        }, err => {
+            console.log(err);
+        });
+    }
+
     /**
      * Method to deal with form submission
      */
@@ -129,15 +141,7 @@ export class ProdutoEditComponent extends BaseEditComponent {
         this.saveNewCategories(this.product);
 
         if (this.isEditing) {
-            this.product.name = this.form.name.value;
-            this.product.description = this.form.description.value;
-            this.product.value = this.form.value.value;
-            
-            this.service.update(this.product).subscribe(result => {
-                this.navigate(['produto', 'view', this.product.id]);
-            }, err => {
-                console.log(err);
-            });
+            this.updateProduct();
         } else {
             this.service.create(this.product).subscribe(result => {
                 this.navigate(['produto']);
