@@ -1,6 +1,6 @@
 import { IProdutoService } from './iproduto.service';
 import { Observable, throwError } from 'rxjs';
-import { Produto } from '../produto';
+import { Produto, Categoria, CATEGORIES } from '../produto';
 import { PRODUTOS } from './mock.data';
 
 export class ProdutoMockService implements IProdutoService {
@@ -61,5 +61,14 @@ export class ProdutoMockService implements IProdutoService {
                 obs.complete();
             }
         );
+    }
+    
+    getCategory(code: string): Observable<any>{
+        return new Observable<any>(
+            (obs) => {
+                const category: Categoria = CATEGORIES.filter(cat => cat.code === code).pop();
+                obs.next(category);
+                obs.complete();
+            });
     }
 }

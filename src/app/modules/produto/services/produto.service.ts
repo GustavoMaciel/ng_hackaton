@@ -26,4 +26,8 @@ export class ProdutoService implements IProdutoService {
     create(produto: Produto): Observable<any> {
         throw new Error("Method not implemented.");
     }
+    
+    getCategory(code: string): Observable<any>{
+        throw new Error("Method not implemented.");
+    }
 }

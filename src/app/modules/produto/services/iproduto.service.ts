@@ -7,5 +7,6 @@ export interface IProdutoService {
     update(newProduto: Produto): Observable<any>;
     patch(produto: Produto): Observable<any>;
     create(produto: Produto): Observable<any>;
+    getCategory(code: string): Observable<any>;
 
 }
