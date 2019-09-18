@@ -5,7 +5,7 @@ import { EmpresaService } from '../../services/empresa.service';
 import { ActivatedRoute } from '@angular/router';
 import { Endereco, ESTADOS } from '../../endereco';
 import { Empresa } from '../../empresa';
-import { isCNPJ } from 'brazilian-values';
+import { isCNPJ, formatToCNPJ } from 'brazilian-values';
 
 @Component({
     selector: 'app-empresa-edit',
@@ -131,7 +131,7 @@ export class EmpresaEditComponent extends BaseEditComponent {
      */
     updateCompany() {
         this.company.fancyName = this.form.fancyName.value;
-        this.company.cnpj = this.form.cnpj.value;
+        this.company.cnpj = formatToCNPJ(this.form.cnpj.value);
         this.company.mission = this.form.mission.value;
         this.company.vision = this.form.vision.value;
         
@@ -153,7 +153,7 @@ export class EmpresaEditComponent extends BaseEditComponent {
 
         if (!this.isEditing) {
             this.company = new Empresa(
-                this.form.cnpj.value, this.form.fancyName.value, this.form.mission.value, this.form.vision.value
+                formatToCNPJ(this.form.cnpj.value), this.form.fancyName.value, this.form.mission.value, this.form.vision.value
             );
         }
         this.saveNewAddresses(this.company);

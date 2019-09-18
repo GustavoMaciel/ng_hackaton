@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, AbstractControl } from '@angular/forms';
-import { isCPF } from 'brazilian-values';
+import { isCPF, formatToCPF } from 'brazilian-values';
 import { PessoaService } from '../../services/pessoa.service';
 import { Pessoa } from '../../pessoa';
 import { BaseComponent } from 'src/app/shared/shared-components/base.component';
@@ -141,7 +141,7 @@ export class PessoaEditComponent extends BaseEditComponent {
     updatePerson() {
         this.person.nome = this.form.nome.value;
         this.person.sobrenome = this.form.sobrenome.value;
-        this.person.cpf = this.form.cpf.value;
+        this.person.cpf = formatToCPF(this.form.cpf.value);
         this.person.email = this.form.email.value;
 
         this.service.update(this.person).subscribe((res) => {
@@ -163,7 +163,7 @@ export class PessoaEditComponent extends BaseEditComponent {
 
         if (!this.isEditing) {
             this.person = new Pessoa(
-                0, this.form.nome.value, this.form.sobrenome.value, this.form.email.value, this.form.cpf.value
+                0, this.form.nome.value, this.form.sobrenome.value, this.form.email.value, formatToCPF(this.form.cpf.value)
             );
         }
 
