@@ -15,39 +15,23 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let pessoa of pessoas">
-            <th scope="row">{{pessoa.id}}</th>
-            <td>{{pessoa.nome}} {{pessoa.sobrenome}}</td>
-            <td>{{pessoa.email}}</td>
+          <tr *ngFor="let person of people">
+            <th scope="row">{{person.id}}</th>
+            <td>{{person.nome}} {{person.sobrenome}}</td>
+            <td>{{person.email}}</td>
             <td>
-              <a href="#" (click)="view(pessoa.id)">View</a> &nbsp;
-              <a href="#" (click)="edit(pessoa.id)">Edit</a> &nbsp;
-              <button class="btn btn-danger" data-toggle="modal" [attr.data-target]="'#deleteModal' + pessoa.id">Delete</button>
+              <a href="#" (click)="view(person.id)">View</a> &nbsp;
+              <a href="#" (click)="edit(person.id)">Edit</a> &nbsp;
+              <button class="btn btn-danger" data-toggle="modal" [attr.data-target]="'#deleteModal' + person.id">Delete</button>
             </td>
           </tr>
         </tbody>
       </table>
 
 
-      <div *ngFor="let pessoa of pessoas" id="deleteModal{{pessoa.id}}" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Tem certeza?</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Esta ação irá deletar {{pessoa.nome}} {{pessoa.sobrenome}} <strong>permanente</strong>.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-              <button (click)="delete(service, pessoa.id)" type="button" data-dismiss="modal" class="btn btn-danger">Deletar</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <app-delete *ngFor="let person of people" [service]="service" [id]="person.id" [title]="'Tem certeza?'"
+    [message]="'Esta ação irá deletar ' + person.nome + ' ' + person.sobrenome + ' permanente.'"
+    ></app-delete>
 
 
     </ng-template>

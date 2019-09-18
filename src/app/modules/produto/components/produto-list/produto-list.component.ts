@@ -15,7 +15,7 @@ export class ProdutoListComponent extends BaseListComponent {
 
   ngOnInit() {
     super.ngOnInit();
-    this.listItems(this.service);
+    this.getAll(this.service);
   }
 
   
@@ -24,6 +24,6 @@ export class ProdutoListComponent extends BaseListComponent {
   }
 
   get products() {
-    return this.items;
+    return this.getAll(this.service);
   }
 }

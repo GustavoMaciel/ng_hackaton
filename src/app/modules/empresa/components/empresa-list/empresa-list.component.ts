@@ -13,7 +13,7 @@ export class EmpresaListComponent extends BaseListComponent {
 
   ngOnInit() {
     super.ngOnInit();
-    this.listItems(this.service);
+    this.getAll(this.service);
   }
 
 
@@ -22,7 +22,7 @@ export class EmpresaListComponent extends BaseListComponent {
   }
 
   get companies() {
-    return this.items;
+    return this.getAll(this.service);
   }
 
 }

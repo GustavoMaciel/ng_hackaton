@@ -9,6 +9,7 @@ import { EmpresaMockService } from './services/empresa.mock.service';
 import { SharedComponentsModule } from 'src/app/shared/shared-components/shared-components.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CNPJ } from './pipes/empresa.pipes';
+import { DeleteComponent } from 'src/app/shared/shared-components/delete/delete.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { CNPJ } from './pipes/empresa.pipes';
     FormsModule,
     ReactiveFormsModule,
     SharedComponentsModule,
-    EmpresaRoutingModule
+    EmpresaRoutingModule,
   ],
   providers: [
     {provide: EmpresaService, useClass: EmpresaMockService}

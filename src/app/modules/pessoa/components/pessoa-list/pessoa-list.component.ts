@@ -19,14 +19,14 @@ export class PessoaListComponent extends BaseListComponent {
 
   ngOnInit() {
     super.ngOnInit();
-    this.listItems(this.service);
+    this.getAll(this.service);
   }
 
   protected getRouterURL(): string {
     return 'pessoa';
   }
 
-  get pessoas() {
-    return this.items;
+  get people() {
+    return this.getAll(this.service);
   }
 }
