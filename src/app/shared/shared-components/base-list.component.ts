@@ -18,7 +18,7 @@ export class BaseListComponent extends BaseComponent {
      */
     public loading: boolean = true;
 
-    public items: any[] = [];
+    //public items: any[] = [];
 
     constructor() {
         super();
@@ -58,13 +58,30 @@ export class BaseListComponent extends BaseComponent {
         service.getAll().subscribe(
             result => {
                 this.totalPages = result.totalPages;
-                this.items = result.items;
+                //this.items = result.items;
                 this.loading = false;
             },
             error => {
                 this.loading = false;
                 console.log(error);
-            });
+            }
+        );
+    }
+
+    getAll(service: any) {
+        let items: any[] = []
+        this.loading = true;
+        service.getAll().subscribe(
+            result => {
+                this.totalPages = result.totalPages;
+                this.loading = false;
+                items = result.items;
+            },
+            err => {
+                console.log(err);
+            }
+        );
+        return items;
     }
 
     delete(service: any, id: any): void {
