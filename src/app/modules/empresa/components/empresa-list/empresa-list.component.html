@@ -3,8 +3,11 @@
       Loading...
   </div>
   <ng-template #tableCompanies>
-    <div class="float-left"><app-basic-search></app-basic-search></div>
+
+    <div class="float-left"><app-basic-search (submit)="search($event)"></app-basic-search></div>
+
     <button class="float-right" (click)="add()">Add</button>
+
     <table class="table table-striped table-hover">
       <thead class="thead-dark">
         <tr>

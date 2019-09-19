@@ -3,26 +3,31 @@ import { BaseListComponent } from 'src/app/shared/shared-components/base-list.co
 import { EmpresaService } from '../../services/empresa.service';
 
 @Component({
-  selector: 'app-empresa-list',
-  templateUrl: './empresa-list.component.html',
-  styleUrls: ['./empresa-list.component.scss']
+    selector: 'app-empresa-list',
+    templateUrl: './empresa-list.component.html',
+    styleUrls: ['./empresa-list.component.scss']
 })
 export class EmpresaListComponent extends BaseListComponent {
 
-  constructor(private service: EmpresaService) { super(); }
+    constructor(private service: EmpresaService) { super(); }
 
-  ngOnInit() {
-    super.ngOnInit();
-    this.getAll(this.service);
-  }
+    ngOnInit() {
+        super.ngOnInit();
+        this.getAll(this.service);
+    }
 
 
-  protected getRouterURL(): string {
-    return 'empresa';
-  }
+    protected getRouterURL(): string {
+        return 'empresa';
+    }
 
-  get companies() {
-    return this.getAll(this.service);
-  }
+    get companies() {
+        return this.getAll(this.service);
+    }
+
+    search(event: any): void {
+        console.log("Triggered!")
+        console.log(event)
+    }
 
 }
