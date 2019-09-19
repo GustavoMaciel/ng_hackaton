@@ -12,15 +12,34 @@ export class EmpresaMockService extends BaseService implements IEmpresaService {
 
     private mock: Empresa[] = EMPRESAS;
 
-    constructor(){
+    constructor() {
         super();
+    }
+
+    search(searchParam: any): Observable<any> {
+        let items = []
+        for (let empr of this.mock) {
+            if (searchParam.name) {
+                if (empr.fancyName.toLowerCase().indexOf(searchParam.name) !== -1){
+                    items.push(empr);
+                }
+            }
+        }
+        return new Observable<any>((obs) => {
+            const result = {
+                "totalPages": 1,
+                "items": items
+            }
+            obs.next(result);
+            obs.complete();
+        });
     }
 
     getAll(): Observable<any> {
         return new Observable<any>((obs) => {
             obs.next({
-            "totalPages": 1,
-            "items": this.mock
+                "totalPages": 1,
+                "items": this.mock
             });
             obs.complete();
         });
@@ -29,47 +48,47 @@ export class EmpresaMockService extends BaseService implements IEmpresaService {
 
     update(newEmpresa: Empresa): Observable<any> {
         return new Observable<any>((obs) => {
-          const oldEmpresa = this.getById(newEmpresa.id);
-          if(!oldEmpresa) {
-            throwError({"message":"Empresa não encontrada", "status": 404})
-          }
-          Object.assign(oldEmpresa, newEmpresa);
-          obs.next(oldEmpresa);
-          obs.complete();
+            const oldEmpresa = this.getById(newEmpresa.id);
+            if (!oldEmpresa) {
+                throwError({ "message": "Empresa não encontrada", "status": 404 })
+            }
+            Object.assign(oldEmpresa, newEmpresa);
+            obs.next(oldEmpresa);
+            obs.complete();
         });
     }
 
 
     create(empresa: Empresa): Observable<any> {
         return new Observable<any>(
-          (obs) => {
-            empresa.id = ++this.lastIdEmpresa;
-            for(let end of empresa.enderecos){
-              end.id = ++this.lastIdEndereco;
-            }
-            this.mock.push(empresa);
-            obs.next(empresa);
-            obs.complete();
-          });
-      }
-
-
-    delete(id: number): Observable<any>{
-        return new Observable<any>(
-          (obs) => {
-            this.mock = this.mock.filter(empresa => empresa.id !== id);
-            obs.next({"message": "Empresa deletada com sucesso!", "status": 200});
-            obs.complete();
-          });
+            (obs) => {
+                empresa.id = ++this.lastIdEmpresa;
+                for (let end of empresa.enderecos) {
+                    end.id = ++this.lastIdEndereco;
+                }
+                this.mock.push(empresa);
+                obs.next(empresa);
+                obs.complete();
+            });
     }
 
 
-    getById(id: number): Observable<any>{
+    delete(id: number): Observable<any> {
         return new Observable<any>(
-          (obs) => {
-            const empresa: Empresa = this.mock.filter(emp => emp.id === id).pop();
-            obs.next(empresa);
-            obs.complete();
-          });
+            (obs) => {
+                this.mock = this.mock.filter(empresa => empresa.id !== id);
+                obs.next({ "message": "Empresa deletada com sucesso!", "status": 200 });
+                obs.complete();
+            });
+    }
+
+
+    getById(id: number): Observable<any> {
+        return new Observable<any>(
+            (obs) => {
+                const empresa: Empresa = this.mock.filter(emp => emp.id === id).pop();
+                obs.next(empresa);
+                obs.complete();
+            });
     }
 }

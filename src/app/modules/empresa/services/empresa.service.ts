@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { Empresa } from '../empresa';
 
 export class EmpresaService extends BaseService implements IEmpresaService {
+    search(searchParam: any): Observable<any> {
+        throw new Error("Method not implemented.");
+    }
     getAll(): Observable<any> {
         throw new Error("Method not implemented.");
     }

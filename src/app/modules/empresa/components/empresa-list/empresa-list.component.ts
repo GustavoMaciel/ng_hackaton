@@ -22,11 +22,13 @@ export class EmpresaListComponent extends BaseListComponent {
     }
 
     get companies() {
-        return this.getAll(this.service);
+        return this.items
     }
 
-    search(event: any): void {
-        console.log(event)
+    searchDealer(event: any): void {
+        if (event.search) {
+            this.search(this.service, { name: event.search })
+        }
     }
 
 }
