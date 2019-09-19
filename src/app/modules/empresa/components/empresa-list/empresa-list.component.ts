@@ -9,11 +9,11 @@ import { EmpresaService } from '../../services/empresa.service';
 })
 export class EmpresaListComponent extends BaseListComponent {
 
-    constructor(private service: EmpresaService) { super(); }
+    constructor(service: EmpresaService) { super(); this.service = service; }
 
     ngOnInit() {
         super.ngOnInit();
-        this.getAll(this.service);
+        this.getAll();
     }
 
 
@@ -27,7 +27,7 @@ export class EmpresaListComponent extends BaseListComponent {
 
     searchDealer(event: any): void {
         if (event.search) {
-            this.search(this.service, { name: event.search })
+            this.search({ name: event.search })
         }
     }
 

@@ -29,8 +29,8 @@
     </table>
 
 
-    <app-delete *ngFor="let product of products" [service]="service" [id]="product.id" [title]="'Tem certeza?'"
-    [message]="'Esta ação irá deletar ' + product.name + ' permanente.'"
+    <app-delete *ngFor="let product of products" [id]="product.id" [title]="'Tem certeza?'"
+    [message]="'Esta ação irá deletar ' + product.name + ' permanente.'"  (deleted)="receiveDeleteEvent($event)"
     ></app-delete>
 
 

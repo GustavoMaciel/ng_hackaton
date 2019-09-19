@@ -32,8 +32,8 @@
     </table>
 
 
-    <app-delete *ngFor="let company of companies" [service]="service" [id]="company.id" [title]="'Tem certeza?'"
-    [message]="'Esta ação irá deletar ' + company.fancyName + ' permanente.'"
+    <app-delete *ngFor="let company of companies" [id]="company.id" [title]="'Tem certeza?'"
+    [message]="'Esta ação irá deletar ' + company.fancyName + ' permanente.'" (deleted)="receiveDeleteEvent($event)"
     ></app-delete>
 
     

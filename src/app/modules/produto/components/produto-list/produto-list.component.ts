@@ -9,13 +9,14 @@ import { ProdutoService } from '../../services/produto.service';
 })
 export class ProdutoListComponent extends BaseListComponent {
 
-  constructor(private service: ProdutoService) { 
+  constructor(service: ProdutoService) { 
     super();
+    this.service = service;
    }
 
   ngOnInit() {
     super.ngOnInit();
-    this.getAll(this.service);
+    this.getAll();
   }
 
   
@@ -24,6 +25,6 @@ export class ProdutoListComponent extends BaseListComponent {
   }
 
   get products() {
-    return this.getAll(this.service);
+    return this.items;
   }
 }

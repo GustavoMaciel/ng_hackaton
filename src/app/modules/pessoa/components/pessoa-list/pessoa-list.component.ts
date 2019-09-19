@@ -15,11 +15,11 @@ export class PessoaListComponent extends BaseListComponent {
 
   //private service: PessoaService = AppInjector.get(PessoaService)
 
-  constructor(private service: PessoaService) { super(); }
+  constructor(service: PessoaService) { super(); this.service = service; }
 
   ngOnInit() {
     super.ngOnInit();
-    this.getAll(this.service);
+    this.getAll();
   }
 
   protected getRouterURL(): string {
@@ -27,6 +27,6 @@ export class PessoaListComponent extends BaseListComponent {
   }
 
   get people() {
-    return this.getAll(this.service);
+    return this.items
   }
 }

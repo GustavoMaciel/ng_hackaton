@@ -18,6 +18,8 @@ export class BaseListComponent extends BaseComponent {
      */
     public loading: boolean = true;
 
+    public service: any;
+
     items: any[] = [];
 
     constructor() {
@@ -53,9 +55,9 @@ export class BaseListComponent extends BaseComponent {
         return false;
     }
 
-    search(service: any, searchParam: any) {
+    search(searchParam: any) {
         this.loading = true;
-        service.search(searchParam).subscribe(
+        this.service.search(searchParam).subscribe(
             result => {
                 this.totalPages = result.totalPages;
                 this.loading = false;
@@ -67,9 +69,9 @@ export class BaseListComponent extends BaseComponent {
         );
     }
 
-    getAll(service: any) {
+    getAll() {
         this.loading = true;
-        service.getAll().subscribe(
+        this.service.getAll().subscribe(
             result => {
                 this.totalPages = result.totalPages;
                 this.loading = false;
@@ -81,9 +83,13 @@ export class BaseListComponent extends BaseComponent {
         );
     }
 
-    delete(service: any, id: any): void {
-        service.delete(id).subscribe(result => {
-            //this.listItems(service);
+    receiveDeleteEvent(event: any) {
+        this.delete(event.id)
+    }
+
+    delete(id: any): void {
+        this.service.delete(id).subscribe(result => {
+            this.getAll();
         }, err => {
             console.log(err);
         });

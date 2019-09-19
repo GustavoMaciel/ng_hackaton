@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'app-delete',
@@ -6,8 +6,8 @@ import { Component, OnInit, Input } from '@angular/core';
     styleUrls: ['./delete.component.scss']
 })
 export class DeleteComponent implements OnInit {
-
-    @Input() service: any;
+    
+    @Output() deleted = new EventEmitter<any>();
     @Input() id: any;
     @Input() title: any;
     @Input() message: string;
@@ -18,12 +18,7 @@ export class DeleteComponent implements OnInit {
     }
 
     delete(id: any) {
-        this.service.delete(id).subscribe(result => {
-            
-        }, err => {
-            console.log(err);
-        });
-        return false;
+        this.deleted.emit({id: this.id})
     }
 
 }
