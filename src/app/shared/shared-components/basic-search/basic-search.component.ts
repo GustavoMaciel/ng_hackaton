@@ -26,9 +26,8 @@ export class BasicSearchComponent implements OnInit {
     }
 
     onSubmit(): void{
-        const searchValue = this.formGroup.controls.search.value
         const emit = {
-            search: searchValue
+            search: this.formGroup.controls.search.value
         }
         this.submit.emit(emit);
     }

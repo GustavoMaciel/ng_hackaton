@@ -19,7 +19,7 @@ export class DeleteComponent implements OnInit {
 
     delete(id: any) {
         this.service.delete(id).subscribe(result => {
-            console.log("Deletou");
+            
         }, err => {
             console.log(err);
         });

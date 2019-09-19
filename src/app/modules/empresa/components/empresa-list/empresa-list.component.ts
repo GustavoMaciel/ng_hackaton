@@ -26,7 +26,6 @@ export class EmpresaListComponent extends BaseListComponent {
     }
 
     search(event: any): void {
-        console.log("Triggered!")
         console.log(event)
     }
 
