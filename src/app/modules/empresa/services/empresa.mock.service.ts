@@ -18,13 +18,13 @@ export class EmpresaMockService extends BaseService implements IEmpresaService {
 
     search(searchParam: any): Observable<any> {
         let items = []
+        //if (searchParam.name) {
         for (let empr of this.mock) {
-            if (searchParam.name) {
-                if (empr.fancyName.toLowerCase().indexOf(searchParam.name) !== -1){
-                    items.push(empr);
-                }
+            if (empr.fancyName.toLowerCase().indexOf(searchParam.name) !== -1 || searchParam.name === "") {
+                items.push(empr);
             }
         }
+        //}
         return new Observable<any>((obs) => {
             const result = {
                 "totalPages": 1,

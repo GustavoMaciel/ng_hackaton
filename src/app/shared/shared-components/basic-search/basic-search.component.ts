@@ -11,23 +11,16 @@ export class BasicSearchComponent implements OnInit {
     @Output()
     submit = new EventEmitter<any>();
 
-    public formGroup: FormGroup;
 
-    constructor(protected formBuilder: FormBuilder) { }
+    constructor() { }
 
     ngOnInit() {
-        this.generateForm()
     }
 
-    generateForm() {
-        this.formGroup = this.formBuilder.group({
-            search: ['']
-        })
-    }
 
-    onSubmit(): void{
+    onSubmit(input: any): void {
         const emit = {
-            search: this.formGroup.controls.search.value
+            search: input.value ? input.value : ""
         }
         this.submit.emit(emit);
     }
