@@ -10,17 +10,18 @@ export class BasicSearchComponent implements OnInit {
 
     @Output()
     submit = new EventEmitter<any>();
+    stringToSearch: string;
 
 
-    constructor() { }
+    constructor() {
+     }
 
     ngOnInit() {
     }
 
-
-    onSubmit(input: any): void {
+    onSubmit(): void {
         const emit = {
-            search: input.value ? input.value : ""
+            search: this.stringToSearch ? this.stringToSearch.toLowerCase() : ""
         }
         this.submit.emit(emit);
     }

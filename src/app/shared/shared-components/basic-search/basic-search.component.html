@@ -1,1 +1,5 @@
-<input (keyup)="onSubmit($event.target)" type="text" class="form-control mb-1" placeholder="Buscar">
+<div class="form-inline">
+    <input (keyup)="stringToSearch = $event.target.value" (keyup.enter)="onSubmit()" type="text"
+        class="form-control mr-1 my-1" placeholder="Buscar">
+    <button (click)="onSubmit()" class="btn btn-sm btn-info">Buscar</button>
+</div>

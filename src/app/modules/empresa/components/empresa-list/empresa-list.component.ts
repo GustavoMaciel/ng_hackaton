@@ -26,7 +26,6 @@ export class EmpresaListComponent extends BaseListComponent {
     }
 
     searchDealer(event: any): void {
-        console.log(event)
         this.search({ name: event.search })
     }
 
