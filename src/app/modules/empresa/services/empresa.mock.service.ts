@@ -3,17 +3,51 @@ import { IEmpresaService } from './IEmpresa.service';
 import { Observable, throwError } from 'rxjs';
 import { Empresa } from '../empresa';
 import { Endereco } from '../endereco';
-import { EMPRESAS } from './mock.data';
+import { EMPRESAS, LAST_ID_EMPRESA, LAST_ID_ENDERECO } from './mock.data';
 
 export class EmpresaMockService extends BaseService implements IEmpresaService {
 
-    private lastIdEmpresa = 3;
-    private lastIdEndereco = 4;
+    private lastIdEmpresa = LAST_ID_EMPRESA;
+    private lastIdEndereco = LAST_ID_ENDERECO;
 
     private mock: Empresa[] = EMPRESAS;
+    private pages: any[];
 
     constructor() {
         super();
+        this.setPages(10);
+    }
+
+    get totalPages () : number{
+        return this.pages.length;
+    }
+
+    setPages(pageSize: number) {
+        let _pages = [];
+        let aux = []
+        let counter = 1;
+        for (let i = 0; i < this.mock.length; i++) {
+            if(counter <= pageSize){
+                aux.push(this.mock[i]);
+                counter++;
+            } else {
+                _pages.push([aux]);
+                aux = [];
+
+                aux.push(this.mock[i]);
+                counter = 1;
+            }
+        }
+        if(aux.length > 0){
+            _pages.push(aux);
+        }
+        this.pages = _pages;
+    }
+
+    getPageItems(pageNumber: number, pageSize: number) {
+        pageNumber--;
+        this.setPages(pageSize);
+        return this.pages[pageNumber];
     }
 
     search(searchParam: any): Observable<any> {
@@ -24,10 +58,11 @@ export class EmpresaMockService extends BaseService implements IEmpresaService {
                 items.push(empr);
             }
         }
-        //}
         return new Observable<any>((obs) => {
             const result = {
-                "totalPages": 1,
+                "totalPages": 2,
+                "pageSize": 10,
+                "currentPage": 1,
                 "items": items
             }
             obs.next(result);
@@ -37,9 +72,13 @@ export class EmpresaMockService extends BaseService implements IEmpresaService {
 
     getAll(): Observable<any> {
         return new Observable<any>((obs) => {
+            
             obs.next({
-                "totalPages": 1,
-                "items": this.mock
+                "totalPages": this.totalPages,
+                "pageSize": 10,
+                "currentPage": 1,
+                "items": this.pages[0].filter(item => item),
+                "totalItems": 15
             });
             obs.complete();
         });

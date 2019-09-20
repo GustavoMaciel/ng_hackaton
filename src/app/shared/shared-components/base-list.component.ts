@@ -13,6 +13,7 @@ export class BaseListComponent extends BaseComponent {
      * Number of items per page
      */
     protected currentPageSize = 10;
+    protected totalItems = 1;
     /**
      * If the items are loading
      */
@@ -24,6 +25,14 @@ export class BaseListComponent extends BaseComponent {
 
     constructor() {
         super();
+    }
+
+    get pageDict () {
+        return {
+            totalPages: this.totalPages,
+            currentPage: this.currentPage,
+            pageSize: this.currentPageSize,
+        }
     }
 
 
@@ -60,6 +69,8 @@ export class BaseListComponent extends BaseComponent {
         this.service.search(searchParam).subscribe(
             result => {
                 this.totalPages = result.totalPages;
+                this.currentPage = result.currentPage;
+                this.currentPageSize = result.pageSize;
                 this.loading = false;
                 this.items = result.items;
             },
@@ -74,8 +85,12 @@ export class BaseListComponent extends BaseComponent {
         this.service.getAll().subscribe(
             result => {
                 this.totalPages = result.totalPages;
+                this.currentPage = result.currentPage;
+                this.currentPageSize = result.pageSize;
+                
                 this.loading = false;
                 this.items = result.items;
+                this.totalItems = result.totalItems;
             },
             err => {
                 console.log(err);
