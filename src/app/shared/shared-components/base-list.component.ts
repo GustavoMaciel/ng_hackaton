@@ -21,20 +21,24 @@ export class BaseListComponent extends BaseComponent {
 
     public service: any;
 
+    protected pageDict = {
+        totalPages: this.totalPages,
+        currentPage: this.currentPage,
+        pageSize: this.currentPageSize,
+    }
+
+    searched: any = {name: ""};
+
     items: any[] = [];
 
     constructor() {
         super();
     }
 
-    get pageDict () {
-        return {
-            totalPages: this.totalPages,
-            currentPage: this.currentPage,
-            pageSize: this.currentPageSize,
-        }
+    ngOnInit(){
+        super.ngOnInit();
+        this.search(this.searched);
     }
-
 
     /**
      * Navigates to the edit route
@@ -64,33 +68,27 @@ export class BaseListComponent extends BaseComponent {
         return false;
     }
 
-    search(searchParam: any) {
-        this.loading = true;
-        this.service.search(searchParam).subscribe(
-            result => {
-                this.totalPages = result.totalPages;
-                this.currentPage = result.currentPage;
-                this.currentPageSize = result.pageSize;
-                this.loading = false;
-                this.items = result.items;
-            },
-            err => {
-                console.log(err);
-            }
-        );
+    updatePageDict() {
+        this.pageDict = {
+            totalPages: this.totalPages,
+            currentPage: this.currentPage,
+            pageSize: this.currentPageSize,
+        }
     }
 
-    getAll() {
+    search(searchParam: any, page?: number) {
         this.loading = true;
-        this.service.getAll().subscribe(
+        this.service.search(searchParam, page).subscribe(
             result => {
                 this.totalPages = result.totalPages;
                 this.currentPage = result.currentPage;
                 this.currentPageSize = result.pageSize;
-                
+
                 this.loading = false;
                 this.items = result.items;
                 this.totalItems = result.totalItems;
+
+                this.updatePageDict();
             },
             err => {
                 console.log(err);
@@ -98,8 +96,18 @@ export class BaseListComponent extends BaseComponent {
         );
     }
 
+
     receiveDeleteEvent(event: any) {
         this.delete(event.id)
+    }
+
+    receivePageChangeEvent(event: any) {
+        this.search(this.searched, event);
+    }
+
+    searchDealer(event: any): void {
+        this.searched = {name: event.search};
+        this.search(this.searched);
     }
 
     delete(id: any): void {

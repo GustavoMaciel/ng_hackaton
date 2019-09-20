@@ -13,7 +13,6 @@ export class EmpresaListComponent extends BaseListComponent {
 
     ngOnInit() {
         super.ngOnInit();
-        this.getAll();
     }
 
 
@@ -25,8 +24,5 @@ export class EmpresaListComponent extends BaseListComponent {
         return this.items
     }
 
-    searchDealer(event: any): void {
-        this.search({ name: event.search })
-    }
 
 }

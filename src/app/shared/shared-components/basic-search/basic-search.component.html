@@ -1,5 +1,5 @@
 <div class="form-inline">
     <input (keyup)="stringToSearch = $event.target.value" (keyup.enter)="onSubmit()" type="text"
-        class="form-control mr-1 my-1" placeholder="Buscar">
+        class="form-control mr-1 my-1" placeholder="Buscar" title="Pressione enter para buscar">
     <button (click)="onSubmit()" class="btn btn-sm btn-info">Buscar</button>
 </div>

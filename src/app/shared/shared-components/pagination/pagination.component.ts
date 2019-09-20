@@ -54,6 +54,7 @@ export class PaginationComponent implements OnInit {
     updatePages() {
         this.lastPage = this.totalPages;
         const fitAll = this.totalPages <= this.maxPages;
+
         let firstIndex = fitAll ? 1 : this.currentPage - 2;
         let lastIndex = fitAll ? this.totalPages : this.currentPage + 2;
 
@@ -66,10 +67,10 @@ export class PaginationComponent implements OnInit {
         }
 
         let index = firstIndex;
-        this.pages = []; 
+        this.pages = [];
 
-        for (let i = 0; i < this.maxPages; i++){
-            if(index <= lastIndex) {
+        for (let i = 0; i < this.maxPages; i++) {
+            if (index <= lastIndex) {
                 this.pages[i] = index++;
             }
         }

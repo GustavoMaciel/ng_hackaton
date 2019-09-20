@@ -13,44 +13,55 @@ export class EmpresaMockService extends BaseService implements IEmpresaService {
     private mock: Empresa[] = EMPRESAS;
     private pages: any[];
 
+    private defaultPageSize = 10;
+
     constructor() {
         super();
-        this.setPages(10);
+        this.setPages(this.defaultPageSize, this.mock);
     }
 
-    get totalPages () : number{
+    get totalPages(): number {
         return this.pages.length;
     }
 
-    setPages(pageSize: number) {
+    get totalItems(): number {
+        let total = 0;
+        for(let i of this.pages){
+            total += i.length;
+        }
+
+        return total;
+    }
+
+    setPages(pageSize: number, arrayToPage: any[]) {
         let _pages = [];
         let aux = []
         let counter = 1;
-        for (let i = 0; i < this.mock.length; i++) {
-            if(counter <= pageSize){
-                aux.push(this.mock[i]);
+        for (let i = 0; i < arrayToPage.length; i++) {
+            if (counter <= pageSize) {
+                aux.push(arrayToPage[i]);
                 counter++;
             } else {
-                _pages.push([aux]);
+                _pages.push(aux);
                 aux = [];
 
-                aux.push(this.mock[i]);
+                aux.push(arrayToPage[i]);
                 counter = 1;
             }
         }
-        if(aux.length > 0){
+        if (aux.length > 0) {
             _pages.push(aux);
         }
         this.pages = _pages;
     }
 
-    getPageItems(pageNumber: number, pageSize: number) {
+    getPageItems(pageNumber: number, array: any[], pageSize: number) {
         pageNumber--;
-        this.setPages(pageSize);
+        this.setPages(pageSize, array);
         return this.pages[pageNumber];
     }
 
-    search(searchParam: any): Observable<any> {
+    search(searchParam: any, page?: number): Observable<any> {
         let items = []
         //if (searchParam.name) {
         for (let empr of this.mock) {
@@ -58,27 +69,31 @@ export class EmpresaMockService extends BaseService implements IEmpresaService {
                 items.push(empr);
             }
         }
+
+        this.setPages(this.defaultPageSize, items);
+
         return new Observable<any>((obs) => {
             const result = {
-                "totalPages": 2,
-                "pageSize": 10,
-                "currentPage": 1,
-                "items": items
+                "totalPages": this.totalPages,
+                "pageSize": this.defaultPageSize,
+                "currentPage": page ? page : 1,
+                "items": this.getPageItems(page ? page : 1, items, this.defaultPageSize),
+                "totalItems": this.totalItems
             }
             obs.next(result);
             obs.complete();
         });
     }
 
-    getAll(): Observable<any> {
+    getAll(page?: number): Observable<any> {
         return new Observable<any>((obs) => {
-            
+
             obs.next({
                 "totalPages": this.totalPages,
                 "pageSize": 10,
-                "currentPage": 1,
-                "items": this.pages[0].filter(item => item),
-                "totalItems": 15
+                "currentPage": page ? page : 1,
+                "items": this.getPageItems(page ? page : 1, this.mock, 10),
+                "totalItems": this.totalItems
             });
             obs.complete();
         });
