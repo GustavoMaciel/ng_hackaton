@@ -13,6 +13,7 @@ export class PaginationComponent implements OnInit {
     firstPage: number = 1;
     maxPages: number = 5;
     lastPage: number = 1;
+
     pages = [];
 
     get currentPage() {

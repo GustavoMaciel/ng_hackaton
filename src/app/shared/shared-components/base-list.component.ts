@@ -13,22 +13,34 @@ export class BaseListComponent extends BaseComponent {
      * Number of items per page
      */
     protected currentPageSize = 10;
+    /**
+     * Number of items
+     */
     protected totalItems = 1;
     /**
      * If the items are loading
      */
     public loading: boolean = true;
-
+    /**
+     * Service to be used by child
+     */
     public service: any;
-
+    /**
+     * Object to facilitate access on pagination
+     */
     protected pageDict = {
         totalPages: this.totalPages,
         currentPage: this.currentPage,
         pageSize: this.currentPageSize,
+        totalItems: this.totalItems
     }
-
+    /**
+     * Object to keep track of what has been searched
+     */
     searched: any = {name: ""};
-
+    /**
+     * Array of child items
+     */
     items: any[] = [];
 
     constructor() {
@@ -67,15 +79,23 @@ export class BaseListComponent extends BaseComponent {
         this.navigate([this.getRouterURL(), 'create']);
         return false;
     }
-
+    /**
+     * Updates Page Dict when something changes, mainly because of searches
+     */
     updatePageDict() {
         this.pageDict = {
             totalPages: this.totalPages,
             currentPage: this.currentPage,
             pageSize: this.currentPageSize,
+            totalItems: this.totalItems
         }
     }
-
+    /**
+     * Method to handle searches
+     * Object must be {name: ""}
+     * @param {Object} searchParam 
+     * @param {number} page 
+     */
     search(searchParam: any, page?: number) {
         this.loading = true;
         this.service.search(searchParam, page).subscribe(
@@ -96,23 +116,35 @@ export class BaseListComponent extends BaseComponent {
         );
     }
 
-
+    /**
+     * Method to deal with deletion on child component
+     * @param event 
+     */
     receiveDeleteEvent(event: any) {
         this.delete(event.id)
     }
-
+    /**
+     * Method to deal with page change on child component
+     * @param event 
+     */
     receivePageChangeEvent(event: any) {
         this.search(this.searched, event);
     }
-
+    /**
+     * Method to deal with search changes on child component
+     * @param event
+     */
     searchDealer(event: any): void {
         this.searched = {name: event.search};
         this.search(this.searched);
     }
-
+    /**
+     * Method to deal with deletions
+     * @param id 
+     */
     delete(id: any): void {
         this.service.delete(id).subscribe(result => {
-            this.getAll();
+            this.search(this.searched);
         }, err => {
             console.log(err);
         });
