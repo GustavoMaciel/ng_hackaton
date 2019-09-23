@@ -6,8 +6,6 @@ export class BaseMockService extends BaseService {
     protected pages: any[];
     protected items: any[];
 
-    protected defaultPageSize = 10;
-
     constructor() {
         super();
     }

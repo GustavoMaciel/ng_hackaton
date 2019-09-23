@@ -13,7 +13,7 @@ export class BaseListComponent extends BaseComponent {
     /**
      * Number of items per page
      */
-    protected currentPageSize = 10;
+    protected currentPageSize = 5;
     /**
      * Number of items
      */
@@ -46,7 +46,7 @@ export class BaseListComponent extends BaseComponent {
     /**
      * Subject to update pagination after item deletion
      */
-    protected updatePagination: Subject<boolean> = new Subject<boolean>();
+    protected updatePagination: Subject<any> = new Subject<any>();
 
     constructor() {
         super();
@@ -130,7 +130,7 @@ export class BaseListComponent extends BaseComponent {
      * @param event 
      */
     receiveDeleteEvent(event: any) {
-        this.updatePagination.next(true);
+        this.updatePagination.next(Math.random());
         this.delete(event.id)
     }
     /**
@@ -145,10 +145,22 @@ export class BaseListComponent extends BaseComponent {
      * @param event
      */
     searchDealer(event: any): void {
-        this.updatePagination.next(true);
+        this.updatePagination.next(Math.random());
         this.searched = { name: event.search };
         this.search(this.searched);
     }
+
+
+    amountPerPageDealer(value: number){
+        this.currentPageSize = value;
+        this.service.defaultPageSize = this.currentPageSize;
+
+        this.search(this.searched);
+        this.updatePagination.next(Math.random());
+
+    }
+
+
     /**
      * Method to deal with deletions
      * @param id 

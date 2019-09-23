@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 export class PaginationComponent implements OnInit {
 
     @Input() pageDict: any;
-    @Input() update: Subject<boolean>;
+    @Input() update: Subject<any>;
     @Output() pageChanged = new EventEmitter<any>();
 
     

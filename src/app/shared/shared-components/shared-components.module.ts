@@ -4,6 +4,7 @@ import { BasicSearchComponent } from './basic-search/basic-search.component';
 import { DeleteComponent } from './delete/delete.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationComponent } from './pagination/pagination.component';
+import { AmountPerPageComponent } from './amount-per-page/amount-per-page.component';
 
 @NgModule({
   imports: [
@@ -11,7 +12,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [BasicSearchComponent, DeleteComponent, PaginationComponent],
-  exports: [BasicSearchComponent, DeleteComponent, PaginationComponent]
+  declarations: [BasicSearchComponent, DeleteComponent, PaginationComponent, AmountPerPageComponent],
+  exports: [BasicSearchComponent, DeleteComponent, PaginationComponent, AmountPerPageComponent]
 })
 export class SharedComponentsModule { }
