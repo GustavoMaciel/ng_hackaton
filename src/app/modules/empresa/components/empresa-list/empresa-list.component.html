@@ -36,7 +36,7 @@
 
 
 
-        <app-pagination (pageChanged)="receivePageChangeEvent($event)" [pageDict]="pageDict"></app-pagination>
+        <app-pagination (pageChanged)="receivePageChangeEvent($event)" [update]="updatePagination" [pageDict]="pageDict"></app-pagination>
 
         <app-delete *ngFor="let company of companies" [id]="company.id" [title]="'Tem certeza?'"
             [message]="'Esta ação irá deletar ' + company.fancyName + ' permanente.'"

@@ -1,4 +1,5 @@
 import { BaseComponent } from './base.component';
+import { Observable, Subject } from 'rxjs';
 
 export class BaseListComponent extends BaseComponent {
     /**
@@ -37,11 +38,15 @@ export class BaseListComponent extends BaseComponent {
     /**
      * Object to keep track of what has been searched
      */
-    searched: any = {name: ""};
+    protected searched: any = {name: ""};
     /**
      * Array of child items
      */
-    items: any[] = [];
+    protected items: any[] = [];
+    /**
+     * Subject to update pagination after item deletion
+     */
+    protected updatePagination: Subject<boolean> = new Subject<boolean>();
 
     constructor() {
         super();
@@ -116,11 +121,16 @@ export class BaseListComponent extends BaseComponent {
         );
     }
 
+    getAll(){
+
+    }
+
     /**
      * Method to deal with deletion on child component
      * @param event 
      */
     receiveDeleteEvent(event: any) {
+        this.updatePagination.next(true);
         this.delete(event.id)
     }
     /**

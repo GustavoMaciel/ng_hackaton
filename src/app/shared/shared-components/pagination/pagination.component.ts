@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-pagination',
@@ -8,7 +9,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class PaginationComponent implements OnInit {
 
     @Input() pageDict: any;
+    @Input() update: Subject<boolean>;
     @Output() pageChanged = new EventEmitter<any>();
+
+    
 
     firstPage: number = 1;
     maxPages: number = 5;
@@ -36,6 +40,9 @@ export class PaginationComponent implements OnInit {
 
     ngOnInit() {
         this.updatePages();
+        this.update.subscribe(res => {
+            this.updatePages();
+        })
     }
 
     changeToFirstPage() {
@@ -52,7 +59,7 @@ export class PaginationComponent implements OnInit {
         }
     }
 
-    updatePages() {
+    public updatePages() {
         this.lastPage = this.totalPages;
         const fitAll = this.totalPages <= this.maxPages;
 
