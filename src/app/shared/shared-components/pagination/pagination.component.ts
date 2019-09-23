@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
+import { faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-pagination',
@@ -17,6 +18,9 @@ export class PaginationComponent implements OnInit {
     firstPage: number = 1;
     maxPages: number = 5;
     lastPage: number = 1;
+
+    leftIcon = faAngleDoubleLeft;
+    rightIcon = faAngleDoubleRight;
 
     pages = [];
 

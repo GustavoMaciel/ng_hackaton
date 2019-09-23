@@ -1,5 +1,6 @@
 import { BaseComponent } from './base.component';
 import { Observable, Subject } from 'rxjs';
+import { faEdit, faEye, faTrash, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 export class BaseListComponent extends BaseComponent {
     /**
@@ -47,6 +48,11 @@ export class BaseListComponent extends BaseComponent {
      * Subject to update pagination after item deletion
      */
     protected updatePagination: Subject<any> = new Subject<any>();
+
+    editIcon = faEdit;
+    deleteIcon = faTrash;
+    viewIcon = faEye;
+    addIcon = faPlusCircle;
 
     constructor() {
         super();

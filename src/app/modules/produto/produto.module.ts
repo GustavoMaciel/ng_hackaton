@@ -9,6 +9,7 @@ import { ProdutoMockService } from './services/produto.mock.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedComponentsModule } from 'src/app/shared/shared-components/shared-components.module';
 import { BRMoney } from './pipes/produto.pipes';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [ProdutoListComponent, ProdutoEditComponent, ProdutoViewComponent, BRMoney],
@@ -17,7 +18,8 @@ import { BRMoney } from './pipes/produto.pipes';
     FormsModule,
     ReactiveFormsModule,
     SharedComponentsModule,
-    ProdutoRoutingModule
+    ProdutoRoutingModule,
+    FontAwesomeModule
   ],
   providers: [
     {provide: ProdutoService, useClass: ProdutoMockService}

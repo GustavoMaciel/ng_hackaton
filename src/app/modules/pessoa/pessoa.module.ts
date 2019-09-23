@@ -10,6 +10,7 @@ import { SharedComponentsModule } from 'src/app/shared/shared-components/shared-
 import { BasicSearchComponent } from 'src/app/shared/shared-components/basic-search/basic-search.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CPF } from './pipes/pessoa.pipes';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CPF } from './pipes/pessoa.pipes';
     FormsModule,
     ReactiveFormsModule,
     PessoaRoutingModule,
-    SharedComponentsModule
+    SharedComponentsModule,
+    FontAwesomeModule
   ],
   providers: [{provide: PessoaService, useClass: PessoaMockService}]
 })
