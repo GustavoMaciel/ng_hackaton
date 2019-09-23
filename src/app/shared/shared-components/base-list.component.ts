@@ -38,7 +38,7 @@ export class BaseListComponent extends BaseComponent {
     /**
      * Object to keep track of what has been searched
      */
-    protected searched: any = {name: ""};
+    protected searched: any = { name: "" };
     /**
      * Array of child items
      */
@@ -52,7 +52,7 @@ export class BaseListComponent extends BaseComponent {
         super();
     }
 
-    ngOnInit(){
+    ngOnInit() {
         super.ngOnInit();
         this.search(this.searched);
     }
@@ -121,7 +121,7 @@ export class BaseListComponent extends BaseComponent {
         );
     }
 
-    getAll(){
+    getAll() {
 
     }
 
@@ -145,7 +145,8 @@ export class BaseListComponent extends BaseComponent {
      * @param event
      */
     searchDealer(event: any): void {
-        this.searched = {name: event.search};
+        this.updatePagination.next(true);
+        this.searched = { name: event.search };
         this.search(this.searched);
     }
     /**

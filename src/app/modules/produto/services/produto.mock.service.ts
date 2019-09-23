@@ -2,54 +2,28 @@ import { IProdutoService } from './iproduto.service';
 import { Observable, throwError } from 'rxjs';
 import { Produto, Categoria, CATEGORIES } from '../produto';
 import { PRODUTOS } from './mock.data';
+import { BaseMockService } from 'src/app/shared/shared-services/base.mock.service';
 
-export class ProdutoMockService implements IProdutoService {
+export class ProdutoMockService extends BaseMockService implements IProdutoService {
 
     private lastId: number = 2
     private mock: Produto[] = PRODUTOS;
 
-    getAll(): Observable<any> {
-        return new Observable<any>((obs) => {
-            obs.next({
-                "totalPages": 1,
-                "items": this.mock
-            });
-            obs.complete();
-        });
+    constructor () {
+        super();
+        this.items = PRODUTOS;
+        this.setPages(this.defaultPageSize, this.items);
     }
 
-    getById(id: number): Observable<any> {
-        return new Observable<any>(
-            (obs) => {
-                const produto: Produto = this.mock.filter(prod => prod.id === id).pop();
-                obs.next(produto);
-                obs.complete();
-            });
-    }
-
-    delete(id: number): Observable<any> {
-        return new Observable<any>(
-            (obs) => {
-                this.mock = this.mock.filter(prod => prod.id !== id);
-                obs.next({ "message": "Produto deletada com sucesso!", "status": 200 });
-                obs.complete();
-            });
-    }
-
-    update(newProduto: Produto): Observable<any> {
-        return new Observable<any>((obs) => {
-            const oldProduto = this.getById(newProduto.id);
-            if (!oldProduto) {
-                throwError({ "message": "Pessoa não encontrada", "status": 404 })
+    getSearchedItems(searchParam: any): any{
+        let auxItems = []
+        //if (searchParam.name) {
+        for (let item of this.items) {
+            if (item.name.toLowerCase().indexOf(searchParam.name) !== -1 || searchParam.name === "") {
+                auxItems.push(item);
             }
-            Object.assign(oldProduto, newProduto);
-            obs.next(oldProduto);
-            obs.complete();
-        });
-    }
-
-    patch(produto: Produto): Observable<any> {
-        throw new Error("Method not implemented.");
+        }
+        return auxItems;
     }
     
     create(produto: Produto): Observable<any> {
