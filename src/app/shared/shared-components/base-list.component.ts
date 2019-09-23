@@ -1,5 +1,5 @@
 import { BaseComponent } from './base.component';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { faEdit, faEye, faTrash, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 export class BaseListComponent extends BaseComponent {

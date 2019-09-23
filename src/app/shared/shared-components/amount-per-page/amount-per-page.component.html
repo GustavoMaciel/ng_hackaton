@@ -1,5 +1,7 @@
-<select (change)="onChange($event.target.value)" class="browser-default custom-select" name="amountSelection" id="amountSelection">
-    <option value="5" selected>5</option>
-    <option value="10">10</option>
-    <option value="20">20</option>
-</select>
+<div class="form-inline">
+    <span class="mr-1">Itens por página: </span>
+    <select (change)="onChange($event.target.value)" [ngModel]="currentAmount" class="browser-default custom-select" name="amountSelection"
+        id="amountSelection">
+        <option *ngFor="let opt of validAmounts" [value]="opt">{{opt}}</option>
+    </select>
+</div>

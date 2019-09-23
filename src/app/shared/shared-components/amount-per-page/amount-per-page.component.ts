@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
     selector: 'app-amount-per-page',
@@ -8,13 +8,25 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class AmountPerPageComponent {
 
     @Output() amountChanged = new EventEmitter<any>();
-    amountPerPage = 10;
-    
+    validAmounts: number[] = [5, 10, 20];
+    @Input() currentAmount = 5;
 
     constructor() { }
 
+    isValid(value: number): boolean {
+        for (let val of this.validAmounts){
+            if(val == value){
+                return true;
+            }
+        }
+        return false;
+    }
+
     onChange(value: number) {
-        this.amountChanged.emit(value);
+        if (this.isValid(value)) {
+            this.currentAmount = value;
+            this.amountChanged.emit(value);
+        }
     }
 
 }

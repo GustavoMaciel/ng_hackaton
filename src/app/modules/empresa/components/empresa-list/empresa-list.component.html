@@ -51,7 +51,7 @@
         </div>
 
         <div class="float-right">
-            <app-amount-per-page (amountChanged)="amountPerPageDealer($event)"></app-amount-per-page>
+            <app-amount-per-page [currentAmount]="currentPageSize" (amountChanged)="amountPerPageDealer($event)"></app-amount-per-page>
         </div>
 
         <app-delete *ngFor="let company of companies" [id]="company.id" [title]="'Tem certeza?'"
