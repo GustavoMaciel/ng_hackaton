@@ -36,7 +36,7 @@ export class PessoaMockService extends BaseMockService implements IPessoaService
         let auxItems = []
         //if (searchParam.name) {
         for (let item of this.items) {
-            if (item.nome.toLowerCase().indexOf(searchParam.name) !== -1 || searchParam.name === "") {
+            if (`${item.nome + ' ' + item.sobrenome}`.toLowerCase().indexOf(searchParam.name) !== -1 || searchParam.name === "") {
                 auxItems.push(item);
             }
         }

@@ -1,39 +1,47 @@
 <div class="container">
-  <div *ngIf="loading; else tablePessoas">
-      Loading...
-  </div>
-  <ng-template #tablePessoas>
-    <div class="float-left"><app-basic-search></app-basic-search></div>
-    <button class="float-right" (click)="add()">Add</button>
-    <table class="table table-striped table-hover">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Nome</th>
-          <th scope="col">Preço</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of products">
-          <th scope="row">{{product.id}}</th>
-          <td>{{product.name}}</td>
-          <td>{{product.value | br_money}}</td>
-          <td>
-            <a href="#" (click)="view(product.id)">View</a> &nbsp;
-            <a href="#" (click)="edit(product.id)">Edit</a> &nbsp;
-            <button class="btn btn-danger" data-toggle="modal" [attr.data-target]="'#deleteModal' + product.id">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div *ngIf="loading; else tablePessoas">
+        Loading...
+    </div>
+    <ng-template #tablePessoas>
+
+        <div class="float-left">
+            <app-basic-search (submit)="searchDealer($event)"></app-basic-search>
+        </div>
+
+        <button class="float-right" (click)="add()">Add</button>
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Preço</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products">
+                    <th scope="row">{{product.id}}</th>
+                    <td>{{product.name}}</td>
+                    <td>{{product.value | br_money}}</td>
+                    <td>
+                        <a href="#" (click)="view(product.id)">View</a> &nbsp;
+                        <a href="#" (click)="edit(product.id)">Edit</a> &nbsp;
+                        <button class="btn btn-danger" data-toggle="modal"
+                            [attr.data-target]="'#deleteModal' + product.id">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <app-pagination (pageChanged)="receivePageChangeEvent($event)" [update]="updatePagination"
+            [pageDict]="pageDict"></app-pagination>
 
 
-    <app-delete *ngFor="let product of products" [id]="product.id" [title]="'Tem certeza?'"
-    [message]="'Esta ação irá deletar ' + product.name + ' permanente.'"  (deleted)="receiveDeleteEvent($event)"
-    ></app-delete>
+        <app-delete *ngFor="let product of products" [id]="product.id" [title]="'Tem certeza?'"
+            [message]="'Esta ação irá deletar ' + product.name + ' permanente.'" (deleted)="receiveDeleteEvent($event)">
+        </app-delete>
 
 
-  </ng-template>
-    
+    </ng-template>
+
 </div>
