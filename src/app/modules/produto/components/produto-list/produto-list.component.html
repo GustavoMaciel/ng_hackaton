@@ -33,8 +33,13 @@
             </tbody>
         </table>
 
-        <app-pagination (pageChanged)="receivePageChangeEvent($event)" [update]="updatePagination"
-            [pageDict]="pageDict"></app-pagination>
+        <div class="float-left mb-2">
+                <app-pagination (pageChanged)="receivePageChangeEvent($event)" [update]="updatePagination" [pageDict]="pageDict"></app-pagination>
+        </div>
+
+        <div class="float-right">
+            <app-amount-per-page (amountChanged)="amountPerPageDealer($event)"></app-amount-per-page>
+        </div>
 
 
         <app-delete *ngFor="let product of products" [id]="product.id" [title]="'Tem certeza?'"
