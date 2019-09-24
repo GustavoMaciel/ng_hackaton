@@ -36,7 +36,7 @@ export class BaseMockService extends BaseService {
                 aux = [];
 
                 aux.push(arrayToPage[i]);
-                counter = 1;
+                counter = 2;
             }
         }
         if (aux.length > 0) {
