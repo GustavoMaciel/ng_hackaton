@@ -1,6 +1,8 @@
 import { BaseComponent } from './base.component';
 import { Subject } from 'rxjs';
 import { faEdit, faEye, faTrash, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { ViewChild } from '@angular/core';
+import { PaginationComponent } from './pagination/pagination.component';
 
 export class BaseListComponent extends BaseComponent {
     /**
@@ -99,7 +101,7 @@ export class BaseListComponent extends BaseComponent {
             currentPage: this.currentPage,
             pageSize: this.currentPageSize,
             totalItems: this.totalItems
-        }
+        };
     }
     /**
      * Method to handle searches
@@ -162,8 +164,8 @@ export class BaseListComponent extends BaseComponent {
         this.service.defaultPageSize = this.currentPageSize;
 
         this.search(this.searched);
+        this.updatePageDict();
         this.updatePagination.next(Math.random());
-
     }
 
 

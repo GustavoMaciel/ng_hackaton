@@ -46,7 +46,7 @@
 
 
         <div class="float-left mb-2">
-            <app-pagination (pageChanged)="receivePageChangeEvent($event)" [update]="updatePagination"
+            <app-pagination #pagination (pageChanged)="receivePageChangeEvent($event)" [update]="updatePagination"
                 [pageDict]="pageDict"></app-pagination>
         </div>
 

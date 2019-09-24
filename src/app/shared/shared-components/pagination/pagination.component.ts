@@ -13,8 +13,6 @@ export class PaginationComponent implements OnInit {
     @Input() update: Subject<any>;
     @Output() pageChanged = new EventEmitter<any>();
 
-    
-
     firstPage: number = 1;
     maxPages: number = 5;
     lastPage: number = 1;
@@ -45,8 +43,9 @@ export class PaginationComponent implements OnInit {
     ngOnInit() {
         this.updatePages();
         this.update.subscribe(res => {
+            this.pages = [];
             this.updatePages();
-        })
+        });
     }
 
     changeToFirstPage() {
