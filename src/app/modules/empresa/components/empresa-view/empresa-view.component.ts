@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Empresa } from '../../empresa';
 import { ActivatedRoute } from '@angular/router';
 import { EmpresaService } from '../../services/empresa.service';
-import { BaseComponent } from 'src/app/shared/shared-components/base.component';
 import { BaseViewComponent } from 'src/app/shared/shared-components/base.view.component';
 
 @Component({

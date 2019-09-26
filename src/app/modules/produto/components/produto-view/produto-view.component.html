@@ -1,31 +1,43 @@
 <div class="container">
-  <div class="row">
-    <form>
-      <div class="form-row mb-3">
-        <div class="col-md-7">
-          <label for="">Nome</label>
-          <h5 class="data">{{product.name}}</h5>
+  <div class="card mx-5 my-3">
+    <div class="bg-info text-white card-header">
+      <h5 class="float-left mt-2">{{product.name}}</h5>
+
+      <div class="float-right">
+        <button (click)="edit(product.id)" class="btn btn-light">
+          <fa-icon [icon]="editIcon"></fa-icon> Editar
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <form>
+        <div class="form-row mb-3">
+          <div class="col-md-7">
+            <label for="">Nome</label>
+            <h5 class="data">{{product.name}}</h5>
+          </div>
+
+          <div class="col-md-4">
+            <label for="">Valor</label>
+            <h5 class="data">{{product.value | br_money}}</h5>
+          </div>
         </div>
 
-        <div class="col-md-4">
-          <label for="">Valor</label>
-          <h5 class="data">{{product.value | br_money}}</h5>
+        <div class="form-row mb-3">
+          <div class="col-md-12">
+            <label for="">Descrição</label>
+            <h5 class="data">{{product.description}}</h5>
+          </div>
         </div>
-      </div>
 
-      <div class="form-row mb-3">
-        <div class="col-md-12">
-          <label for="">Descrição</label>
-          <h5 class="data">{{product.description}}</h5>
+        <div class="form-row mb-3" id="categorias">
+          <div class="col-12">
+            <label class="mr-1">Categorias:</label>
+          </div>
+          <div *ngFor="let cat of product.categories" class="mr-1 data col-4">{{cat.name}}</div>
         </div>
-      </div>
-
-      <div class="form-row mb-3" id="categorias">
-        <div class="col-12">
-          <label class="mr-1">Categorias:</label>
-        </div>
-        <div *ngFor="let cat of product.categories" class="mr-1 data col-5">{{cat.name}}</div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>
