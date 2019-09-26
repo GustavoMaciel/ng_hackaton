@@ -49,7 +49,7 @@
 
                     <div class="form-group mx-4">
 
-                        <a class="btn-sm btn-outline-danger float-right" href="##" (click)="deleteCategoryCard(i)">
+                        <a *ngIf="categoryForms.length > 1" class="btn-sm btn-outline-danger float-right" href="##" (click)="deleteCategoryCard(i)">
                             <fa-icon [icon]="deleteIcon"></fa-icon>
                         </a>
 

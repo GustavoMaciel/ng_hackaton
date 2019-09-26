@@ -88,6 +88,7 @@ export class ProdutoEditComponent extends BaseEditComponent {
                     categories: new FormArray([])
                 },
             );
+            this.onAddCategoryClick();
         }
     }
 
@@ -186,6 +187,7 @@ export class ProdutoEditComponent extends BaseEditComponent {
         while (this.categoryForms.length !== 0) {
             this.categoryForms.removeAt(0);
         }
+        this.onAddCategoryClick();
     }
 
     /**
