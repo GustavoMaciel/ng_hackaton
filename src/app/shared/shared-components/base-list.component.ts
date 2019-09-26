@@ -61,25 +61,6 @@ export class BaseListComponent extends BaseComponent {
         this.search(this.searched);
     }
 
-    /**
-     * Navigates to the edit route
-     * 
-     * @param {any} id 
-     */
-    edit(id: any) {
-        this.navigate([this.getRouterURL(), 'edit', id ? id : '']);
-        return false;
-    }
-
-    /**
-     * Navigates to the view route
-     * 
-     * @param {any} id 
-     */
-    view(id: any) {
-        this.navigate([this.getRouterURL(), 'view', id ? id : '']);
-        return false;
-    }
 
     /**
      * Navigates to the create route

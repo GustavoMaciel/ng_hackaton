@@ -30,4 +30,24 @@ export abstract class  BaseComponent implements OnInit {
     protected getRouterURL(): string{
         return null
     }
+    
+    /**
+     * Navigates to the edit route
+     * 
+     * @param {any} id 
+     */
+    edit(id: any) {
+        this.navigate([this.getRouterURL(), 'edit', id ? id : '']);
+        return false;
+    }
+
+    /**
+     * Navigates to the view route
+     * 
+     * @param {any} id 
+     */
+    view(id: any) {
+        this.navigate([this.getRouterURL(), 'view', id ? id : '']);
+        return false;
+    }
 }

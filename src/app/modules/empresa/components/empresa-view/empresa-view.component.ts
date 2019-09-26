@@ -3,33 +3,33 @@ import { Empresa } from '../../empresa';
 import { ActivatedRoute } from '@angular/router';
 import { EmpresaService } from '../../services/empresa.service';
 import { BaseComponent } from 'src/app/shared/shared-components/base.component';
+import { BaseViewComponent } from 'src/app/shared/shared-components/base.view.component';
 
 @Component({
   selector: 'app-empresa-view',
   templateUrl: './empresa-view.component.html',
   styleUrls: ['./empresa-view.component.scss']
 })
-export class EmpresaViewComponent extends BaseComponent {
+export class EmpresaViewComponent extends BaseViewComponent {
 
-  company: Empresa;
+  constructor(private route: ActivatedRoute, service: EmpresaService) { 
+    super(service); 
+  }
 
-  constructor(private route: ActivatedRoute, private service: EmpresaService) { super(); }
+  get company() {
+    return this.item;
+  }
 
   ngOnInit() {
     super.ngOnInit();
-    const id: number = +this.route.snapshot.paramMap.get("id");
-    this.setCompany(id);
   }
 
-  /**
-   * Set the company variable to a Empresa object with the informed ID
-   * 
-   * @param {number} id 
-   */
-  setCompany(id: number): void{
-    this.service.getById(id).subscribe((result) => {
-      this.company = result;
-    });
+  getId(){
+    return +this.route.snapshot.paramMap.get("id");
+  }
+
+  protected getRouterURL(): string {
+    return 'empresa'
   }
 
 }
