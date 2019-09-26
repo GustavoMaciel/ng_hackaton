@@ -19,7 +19,7 @@ export class PessoaListComponent extends BaseListComponent {
 
   ngOnInit() {
     super.ngOnInit();
-    this.getAll();
+    this.search(this.searched);
   }
 
   protected getRouterURL(): string {

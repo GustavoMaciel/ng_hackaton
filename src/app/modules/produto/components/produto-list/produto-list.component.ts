@@ -16,7 +16,7 @@ export class ProdutoListComponent extends BaseListComponent {
 
   ngOnInit() {
     super.ngOnInit();
-    this.getAll();
+    this.search(this.searched);
   }
 
   

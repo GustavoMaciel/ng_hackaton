@@ -1,8 +1,5 @@
 import { BaseComponent } from './base.component';
 import { Subject } from 'rxjs';
-import { faEdit, faEye, faTrash, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { ViewChild } from '@angular/core';
-import { PaginationComponent } from './pagination/pagination.component';
 
 export class BaseListComponent extends BaseComponent {
     /**
@@ -54,13 +51,6 @@ export class BaseListComponent extends BaseComponent {
      */
     protected updatePagination: Subject<any> = new Subject<any>();
 
-    /**
-     * Icons
-     */
-    editIcon = faEdit;
-    deleteIcon = faTrash;
-    viewIcon = faEye;
-    addIcon = faPlusCircle;
 
     constructor() {
         super();
@@ -110,6 +100,21 @@ export class BaseListComponent extends BaseComponent {
             pages: this.pages
         };
     }
+
+    updateAttributes(result: any){
+        this.totalPages = result.totalPages;
+        this.currentPage = result.currentPage;
+        this.currentPageSize = result.pageSize;
+
+        this.loading = false;
+        this.items = result.items;
+        this.totalItems = result.totalItems;
+
+        this.pages = result.pages;
+
+        this.updatePageDict();
+    }
+
     /**
      * Method to handle searches
      * Object must be {name: ""}
@@ -120,17 +125,7 @@ export class BaseListComponent extends BaseComponent {
         this.loading = true;
         this.service.search(searchParam, page).subscribe(
             result => {
-                this.totalPages = result.totalPages;
-                this.currentPage = result.currentPage;
-                this.currentPageSize = result.pageSize;
-
-                this.loading = false;
-                this.items = result.items;
-                this.totalItems = result.totalItems;
-
-                this.pages = result.pages;
-
-                this.updatePageDict();
+                this.updateAttributes(result);
             },
             err => {
                 console.log(err);
@@ -138,9 +133,6 @@ export class BaseListComponent extends BaseComponent {
         );
     }
 
-    getAll() {
-
-    }
 
     /**
      * Method to deal with deletion on child component
