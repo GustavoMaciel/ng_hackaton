@@ -20,7 +20,7 @@ export class PaginationComponent implements OnInit {
     leftIcon = faAngleDoubleLeft;
     rightIcon = faAngleDoubleRight;
 
-    pages = [];
+    //pages = [];
 
     get currentPage() {
         return this.pageDict.currentPage;
@@ -37,13 +37,22 @@ export class PaginationComponent implements OnInit {
         this.pageDict.totalPages = value;
         this.updatePages();
     }
+    get pages(){
+        let pages = [];
+        let auxPages = this.updatePages();
+        for (let i=0; i < this.maxPages; i++){
+            if (pages.length < auxPages.length) {
+                pages.push(auxPages[i]);
+            }
+        }
+        return pages;
+    }
 
     constructor() { }
 
     ngOnInit() {
         this.updatePages();
         this.update.subscribe(res => {
-            this.pages = [];
             this.updatePages();
         });
     }
@@ -78,13 +87,14 @@ export class PaginationComponent implements OnInit {
         }
 
         let index = firstIndex;
-        this.pages = [];
+        let auxPages = [];
 
         for (let i = 0; i < this.maxPages; i++) {
             if (index <= lastIndex) {
-                this.pages[i] = index++;
+                auxPages[i] = index++;
             }
         }
+        return auxPages;
     }
 
 

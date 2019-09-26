@@ -11,7 +11,7 @@ import { SERVER_URL } from '../url/url.domain';
  * All services MUST extend this class.
  */
 export abstract class BaseService {
-    public defaultPageSize = 5;
+    public pageSize = 5;
     /**
      * Client for the HTTP operations.
      *

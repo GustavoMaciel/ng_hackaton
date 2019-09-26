@@ -14,7 +14,7 @@ export class EmpresaMockService extends BaseMockService implements IEmpresaServi
     constructor() {
         super();
         this.items = EMPRESAS;
-        this.setPages(this.defaultPageSize, this.items);
+        this.setPages(this.pageSize, this.items);
     }
 
     getSearchedItems(searchParam: any): any{

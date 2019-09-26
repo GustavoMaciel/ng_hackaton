@@ -12,7 +12,7 @@ export class ProdutoMockService extends BaseMockService implements IProdutoServi
     constructor () {
         super();
         this.items = PRODUTOS;
-        this.setPages(this.defaultPageSize, this.items);
+        this.setPages(this.pageSize, this.items);
     }
 
     getSearchedItems(searchParam: any): any{

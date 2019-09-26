@@ -21,6 +21,8 @@ export class BaseListComponent extends BaseComponent {
      * Number of items
      */
     protected totalItems = 1;
+
+    protected pages = [];
     /**
      * If the items are loading
      */
@@ -36,7 +38,8 @@ export class BaseListComponent extends BaseComponent {
         totalPages: this.totalPages,
         currentPage: this.currentPage,
         pageSize: this.currentPageSize,
-        totalItems: this.totalItems
+        totalItems: this.totalItems,
+        pages: this.pages
     }
     /**
      * Object to keep track of what has been searched
@@ -51,6 +54,9 @@ export class BaseListComponent extends BaseComponent {
      */
     protected updatePagination: Subject<any> = new Subject<any>();
 
+    /**
+     * Icons
+     */
     editIcon = faEdit;
     deleteIcon = faTrash;
     viewIcon = faEye;
@@ -100,7 +106,8 @@ export class BaseListComponent extends BaseComponent {
             totalPages: this.totalPages,
             currentPage: this.currentPage,
             pageSize: this.currentPageSize,
-            totalItems: this.totalItems
+            totalItems: this.totalItems,
+            pages: this.pages
         };
     }
     /**
@@ -120,6 +127,8 @@ export class BaseListComponent extends BaseComponent {
                 this.loading = false;
                 this.items = result.items;
                 this.totalItems = result.totalItems;
+
+                this.pages = result.pages;
 
                 this.updatePageDict();
             },
@@ -161,7 +170,7 @@ export class BaseListComponent extends BaseComponent {
 
     amountPerPageDealer(value: number){
         this.currentPageSize = value;
-        this.service.defaultPageSize = this.currentPageSize;
+        this.service.pageSize = this.currentPageSize;
 
         this.search(this.searched);
         this.updatePageDict();

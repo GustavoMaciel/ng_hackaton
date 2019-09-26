@@ -58,15 +58,16 @@ export class BaseMockService extends BaseService {
     search(searchParam: any, page?: number): Observable<any> {
         let auxItems = this.getSearchedItems(searchParam);
 
-        this.setPages(this.defaultPageSize, auxItems);
+        this.setPages(this.pageSize, auxItems);
 
         return new Observable<any>((obs) => {
             const result = {
                 "totalPages": this.totalPages,
-                "pageSize": this.defaultPageSize,
+                "pageSize": this.pageSize,
                 "currentPage": page ? page : 1,
-                "items": this.getPageItems(page ? page : 1, auxItems, this.defaultPageSize),
-                "totalItems": this.totalItems
+                "items": this.getPageItems(page ? page : 1, auxItems, this.pageSize),
+                "totalItems": this.totalItems,
+                "pages": this.pages
             }
             obs.next(result);
             obs.complete();
@@ -81,7 +82,8 @@ export class BaseMockService extends BaseService {
                 "pageSize": 10,
                 "currentPage": page ? page : 1,
                 "items": this.getPageItems(page ? page : 1, this.items, 10),
-                "totalItems": this.totalItems
+                "totalItems": this.totalItems,
+                "pages": this.pages
             });
             obs.complete();
         });

@@ -17,6 +17,7 @@ export class PessoaMockService extends BaseMockService implements IPessoaService
     constructor() {
         super();
         this.items = PESSOAS;
+        this.setPages(this.pageSize, this.items);
     }
 
     create(pessoa: Pessoa): Observable<any> {

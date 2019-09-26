@@ -5,7 +5,7 @@
     </button>
     <span>
         <button *ngFor="let page of pages" class="btn btn-info ml-1 paginate_button"
-            [attr.disabled]="page == currentPage ? '' : disabled" [ngClass]="page == currentPage ? 'active' : ''"
+            [attr.disabled]="page === currentPage ? '' : disabled" [ngClass]="page == currentPage ? 'active' : ''"
             (click)="changePage(page)">{{page}}</button>
     </span>
     <button (click)="changeToLastPage()" class="btn ml-1 btn-primary paginate_button"
