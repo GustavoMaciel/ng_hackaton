@@ -37,12 +37,7 @@ export class PessoaService extends BaseService implements IPessoaService {
     }
 
     public delete(id: number): Observable<any> {
-        return this.get(PessoaURL.DELETE_PESSOA + id)
-            .pipe(map((result: any) => {
-                result.json();
-            }), catchError((error) => {
-                return empty();
-            }));
+       return super.delete(PessoaURL.BASE + "/" + id);
     }
 
     getById(id: number): Observable<any> {
@@ -60,7 +55,7 @@ export class PessoaService extends BaseService implements IPessoaService {
             tel.pessoaId = null;
             tel.id = null;
         }
-        const body = JSON.stringify(pessoa);
+        const body = JSON.stringify(new PessoaDTO(pessoa));
         return this.post(PessoaURL.BASE, body);
     }
 

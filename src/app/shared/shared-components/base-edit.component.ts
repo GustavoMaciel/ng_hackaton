@@ -20,7 +20,7 @@ export class BaseEditComponent extends BaseComponent {
      */
     item: any = null;
 
-    loading: boolean;
+    loading: boolean = false;
 
 
     service: any = null;
@@ -37,6 +37,8 @@ export class BaseEditComponent extends BaseComponent {
         if (id) {
             this.isEditing = true;
             this.setItem(id);
+        } else {
+            this.generateForm();
         }
 
     }
