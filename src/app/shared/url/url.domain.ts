@@ -7,30 +7,27 @@ export const API_VERSION = 'v1';
  *
  * @type {string}
  */
-export const SERVER_URL = 'http://' + document.location.hostname + ':8080/api/' + API_VERSION + '/';
-// export const SERVER_URL = 'https://' + document.location.hostname + ':5001/api/' + API_VERSION + '/';
 
-export namespace LoginURL {
-  export const BASE = 'login';
-  export const REFRESH_TOKEN = 'refresh';
+//export const SERVER_URL = 'http://' + document.location.hostname + ':8080/hackathon-backend/api/v1/';
+export const SERVER_URL = 'http://localhost:8080/hackathon-backend/api/v1/';
+
+export class PessoaURL {
+  static BASE = 'pessoas';
+  static EDIT_PESSOA = PessoaURL.BASE + '/edit/';
+  static VIEW_PESSOA = PessoaURL.BASE + '/';
+  static DELETE_PESSOA = PessoaURL.BASE + '/delete/';
 }
 
-export namespace UserURL {
-  export const BASE = 'user';
-  export const CHANGE_PASSWORD = 'change-password';
+export class EmpresaURL {
+  static BASE = 'empresas';
+  static VIEW_EMPRESA = SERVER_URL + EmpresaURL.BASE + '/';
+  static EDIT_EMPRESA = SERVER_URL + EmpresaURL.BASE + '/edit/';
+  static DELETE_EMPRESA = SERVER_URL + EmpresaURL.BASE + '/delete/';
 }
 
-export namespace PessoaURL {
-  export const BASE = 'pessoa';
-  export const EDIT_PESSOA = SERVER_URL + PessoaURL.BASE + '/edit/';
-  export const VIEW_PESSOA = SERVER_URL + PessoaURL.BASE + '/';
-  export const DELETE_PESSOA = SERVER_URL + PessoaURL.BASE + '/delete/';
-}
-
-export namespace EmpresaURL {
-  export const BASE = 'empresa';
-}
-
-export namespace ProdutoURL {
-  export const BASE = 'produto';
+export class ProdutoURL {
+ static BASE = 'produtos';
+ static EDIT_PRODUTO = SERVER_URL + ProdutoURL.BASE + '/edit/';
+ static VIEW_PRODUTO = SERVER_URL + ProdutoURL.BASE + '/';
+ static DELETE_PRODUTO = SERVER_URL + ProdutoURL.BASE + '/delete/';
 }

@@ -47,7 +47,7 @@ export abstract class BaseService {
      */
     post(url, body = {}) {
         return this.http.post(SERVER_URL + url, body, {
-            headers: this.getHeaders()
+            headers: this.getHeaders().append("Content-Type", "application/json")
         });
     }
 
@@ -59,8 +59,10 @@ export abstract class BaseService {
      * @returns {Observable<Object>}
      */
     put(url, body = {}) {
+        console.log(body);
+        
         return this.http.put(SERVER_URL + url, body, {
-            headers: this.getHeaders()
+            headers: this.getHeaders().append("Content-Type", "application/json")
         });
     }
 

@@ -21,3 +21,22 @@ export class Pessoa {
         return this;
     }
 }
+
+export class PessoaDTO {
+    public id: number
+    public nome: string
+    public sobrenome: string
+    public email: string
+    public cpf: string
+    public telefones: any[] = [];
+    constructor(pessoa: Pessoa){
+        this.id = pessoa.id;
+        this.nome = pessoa.nome;
+        this.sobrenome = pessoa.sobrenome;
+        this.email = pessoa.email;
+        this.cpf = pessoa.cpf;
+        for(let tel of pessoa.telefones){
+            this.telefones.push(tel.getJSONRepr());
+        }
+    }
+}

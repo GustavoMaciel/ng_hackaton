@@ -113,13 +113,13 @@ export class BaseListComponent extends BaseComponent {
         this.loading = true;
         this.service.search(searchParam, page).subscribe(
             result => {
-                this.totalPages = result.totalPages;
-                this.currentPage = result.currentPage;
+                this.totalPages = Math.ceil(result.totalResults/result.pageSize);
+                this.currentPage = result.pageIndex;
                 this.currentPageSize = result.pageSize;
 
                 this.loading = false;
-                this.items = result.items;
-                this.totalItems = result.totalItems;
+                this.items = result.itens;
+                this.totalItems = result.totalResults;
 
                 this.updatePageDict();
             },

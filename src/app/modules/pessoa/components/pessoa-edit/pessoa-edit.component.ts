@@ -51,9 +51,10 @@ export class PessoaEditComponent extends BaseEditComponent {
     populatePhoneFormArray(): void {
         for (let phone of this.person.telefones) {
             this.phoneForms.push(this.formBuilder.group({
-                countryCode: [phone.countryCode, Validators.required],
+                id: [phone.id],
+                countryCode: [phone.codigoPais, Validators.required],
                 ddd: [phone.ddd, Validators.required],
-                number: [phone.number, Validators.required]
+                number: [phone.numero, Validators.required]
             }));
         }
     }
@@ -99,7 +100,7 @@ export class PessoaEditComponent extends BaseEditComponent {
     /**
      * Convenience setters
      */
-    set person(person: Pessoa) { this.item = person }
+    set person(person: any) { this.item = person }
 
     /**
      * Generates a new validator for the FormGroup to validate if the informed CPF is valid
@@ -128,13 +129,12 @@ export class PessoaEditComponent extends BaseEditComponent {
     saveNewPhones(person: Pessoa): void {
         person.telefones = []
         for (let phone of this.phoneForms.controls) {
-            console.log(phone.value.countryCode);
-            person.telefones.push(
-                new Telefone(this.person.id,
-                    phone.value.countryCode,
-                    phone.value.ddd,
-                    phone.value.number)
-            )
+            let telefone = new Telefone(this.person.id,
+                phone.value.countryCode,
+                phone.value.ddd,
+                phone.value.number);
+            telefone.id = phone.value.id;
+            person.telefones.push(telefone);
         }
     }
 
@@ -184,6 +184,7 @@ export class PessoaEditComponent extends BaseEditComponent {
     onAddPhoneClick() {
         this.phoneForms.push(this.formBuilder.group(
             {
+                id: [undefined],
                 countryCode: ['', Validators.required],
                 ddd: ['', Validators.required],
                 number: ['', Validators.required]

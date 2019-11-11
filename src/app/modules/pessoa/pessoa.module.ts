@@ -27,6 +27,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     SharedComponentsModule,
     FontAwesomeModule
   ],
-  providers: [{provide: PessoaService, useClass: PessoaMockService}]
+  providers: [{provide: PessoaService, useClass: PessoaService}]
 })
 export class PessoaModule { }

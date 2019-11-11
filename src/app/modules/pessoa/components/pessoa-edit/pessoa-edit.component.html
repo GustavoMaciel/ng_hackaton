@@ -1,86 +1,108 @@
-<div class="card mx-5 my-3">
-    <h5 *ngIf="!isEditing; else headerEditing" class="card-header">Cadastrar Pessoa</h5>
-    <ng-template #headerEditing><h5 class="card-header">Atualizar {{person.nome}} {{person.sobrenome}}</h5></ng-template>
-    
-    <div class="card-body">
-        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-            <div class="form-row">
-                <div class="form-group col-6">
-                    <label>Nome</label>
-                    <input type="text" formControlName="nome" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.nome.errors }" />
-                    <div *ngIf="submitted && form.nome.errors" class="invalid-feedback">
-                        <div *ngIf="form.nome.errors.required">O campo nome é obrigatório</div>
-                    </div>
-                </div>
-                <div class="form-group col-6">
-                    <label>Sobrenome</label>
-                    <input type="text" formControlName="sobrenome" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.sobrenome.errors }" />
-                    <div *ngIf="submitted && form.sobrenome.errors" class="invalid-feedback">
-                        <div *ngIf="form.sobrenome.errors.required">O campo sobrenome é obrigatório</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="form-row">
-                <div class="form-group col">
-                    <label>Email</label>
-                    <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.email.errors }" />
-                    <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
-                        <div *ngIf="form.email.errors.required">O campo email é obrigatório</div>
-                        <div *ngIf="form.email.errors.email">O campo email deve ser preenchido com um formato válido</div>
-                    </div>
-                </div>
-                <div class="form-group col">
-                    <label>CPF</label>
-                    <input type="cpf" formControlName="cpf" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.cpf.errors }" />
-                    <div *ngIf="submitted && form.cpf.errors" class="invalid-feedback">
-                        <div *ngIf="form.cpf.errors.required">O campo CPF é obrigatório</div>
-                        <div *ngIf="form.cpf.errors.cpfValidator">O campo CPF deve ser preenchido com um formato válido</div>
-                    </div>
-                </div>
-            </div>
+<div *ngIf="loading; else userInfo">
+    Loading...
+</div>
 
-            <a href="##" (click)="onAddPhoneClick()">+Phone</a>
-            <div>
-                <div *ngFor="let phone of phoneForms.controls; let i = index" class="list-group list-group-flush">
-                    <div class="list-group-item">
-                        <h6 class="card-title">Phone {{i + 1}}</h6> <a class="float-right" href="##" (click)="deletePhoneCard(i)">-Del</a>
-                        <div [formGroup]="phone" class="form-row">
-                            <div class="form-group col-2">
-                                <label>Country Code:</label>
-                                <input type="text" formControlName="countryCode" class="form-control" [ngClass]="{ 'is-invalid': submitted && phone.controls.countryCode.errors }" />
-                                <div *ngIf="submitted && phone.controls.countryCode.errors" class="invalid-feedback">
-                                    <div *ngIf="phone.controls.countryCode.errors.required">Country code is required</div>
-                                </div>
+<ng-template #userInfo>
+    <div class="card mx-5 my-3">
+        <h5 *ngIf="!isEditing; else headerEditing" class="card-header">Cadastrar Pessoa</h5>
+        <ng-template #headerEditing>
+            <h5 class="card-header">Atualizar {{person.nome}} {{person.sobrenome}}</h5>
+        </ng-template>
+
+        <div class="card-body">
+            <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+                <div class="form-row">
+                    <div class="form-group col-6">
+                        <label>Nome</label>
+                        <input type="text" formControlName="nome" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && form.nome.errors }" />
+                        <div *ngIf="submitted && form.nome.errors" class="invalid-feedback">
+                            <div *ngIf="form.nome.errors.required">O campo nome é obrigatório</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-6">
+                        <label>Sobrenome</label>
+                        <input type="text" formControlName="sobrenome" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && form.sobrenome.errors }" />
+                        <div *ngIf="submitted && form.sobrenome.errors" class="invalid-feedback">
+                            <div *ngIf="form.sobrenome.errors.required">O campo sobrenome é obrigatório</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label>Email</label>
+                        <input type="text" formControlName="email" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && form.email.errors }" />
+                        <div *ngIf="submitted && form.email.errors" class="invalid-feedback">
+                            <div *ngIf="form.email.errors.required">O campo email é obrigatório</div>
+                            <div *ngIf="form.email.errors.email">O campo email deve ser preenchido com um formato válido
                             </div>
-                            <div class="form-group col-1">
-                                <label>DDD</label>
-                                <input type="text" formControlName="ddd" class="form-control" [ngClass]="{ 'is-invalid': submitted && phone.controls.ddd.errors }" />
-                                <div *ngIf="submitted && phone.controls.ddd.errors" class="invalid-feedback">
-                                    <div *ngIf="phone.controls.ddd.errors.required">DDD is required</div>
-                                </div>
-                            </div>
-                            <div class="form-group col-5">
-                                <label>Number</label>
-                                <input type="text" formControlName="number" class="form-control" [ngClass]="{ 'is-invalid': submitted && phone.controls.number.errors }" />
-                                <div *ngIf="submitted && phone.controls.number.errors" class="invalid-feedback">
-                                    <div *ngIf="phone.controls.number.errors.required">Number is required</div>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="form-group col">
+                        <label>CPF</label>
+                        <input type="cpf" formControlName="cpf" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && form.cpf.errors }" />
+                        <div *ngIf="submitted && form.cpf.errors" class="invalid-feedback">
+                            <div *ngIf="form.cpf.errors.required">O campo CPF é obrigatório</div>
+                            <div *ngIf="form.cpf.errors.cpfValidator">O campo CPF deve ser preenchido com um formato
+                                válido
                             </div>
                         </div>
                     </div>
                 </div>
-        
-            </div>
+
+                <a href="##" (click)="onAddPhoneClick()">+Phone</a>
+                <div>
+                    <div *ngFor="let phone of phoneForms.controls; let i = index" class="list-group list-group-flush">
+                        <div class="list-group-item">
+                            <h6 class="card-title">Phone {{i + 1}}</h6> <a class="float-right" href="##"
+                                (click)="deletePhoneCard(i)">-Del</a>
+                            <div [formGroup]="phone" class="form-row">
+                                <div class="form-group col-2">
+                                    <label>Country Code:</label>
+                                    <input type="text" formControlName="countryCode" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && phone.controls.countryCode.errors }" />
+                                    <div *ngIf="submitted && phone.controls.countryCode.errors"
+                                        class="invalid-feedback">
+                                        <div *ngIf="phone.controls.countryCode.errors.required">Country code is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-1">
+                                    <label>DDD</label>
+                                    <input type="text" formControlName="ddd" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && phone.controls.ddd.errors }" />
+                                    <div *ngIf="submitted && phone.controls.ddd.errors" class="invalid-feedback">
+                                        <div *ngIf="phone.controls.ddd.errors.required">DDD is required</div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-5">
+                                    <label>Number</label>
+                                    <input type="text" formControlName="number" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && phone.controls.number.errors }" />
+                                    <div *ngIf="submitted && phone.controls.number.errors" class="invalid-feedback">
+                                        <div *ngIf="phone.controls.number.errors.required">Number is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
 
 
-            <div class="text-center">
-                <button *ngIf="!isEditing; else buttonEditing" class="btn btn-primary mr-1">Adicionar</button>
-                <ng-template #buttonEditing><button class="btn btn-primary mr-1">Atualizar</button></ng-template>
-                
-                <button *ngIf="!isEditing" class="btn btn-secondary" type="reset" (click)="onReset()">Resetar</button>
-            </div>
-        </form>
+                <div class="text-center">
+                    <button *ngIf="!isEditing; else buttonEditing" class="btn btn-primary mr-1">Adicionar</button>
+                    <ng-template #buttonEditing><button class="btn btn-primary mr-1">Atualizar</button></ng-template>
 
+                    <button *ngIf="!isEditing" class="btn btn-secondary" type="reset"
+                        (click)="onReset()">Resetar</button>
+                </div>
+            </form>
+
+        </div>
     </div>
-</div>
+</ng-template>

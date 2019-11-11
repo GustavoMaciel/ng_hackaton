@@ -1,6 +1,7 @@
 import { BaseComponent } from './base.component';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Pessoa } from 'src/app/modules/pessoa/pessoa';
 
 export class BaseEditComponent extends BaseComponent {
     /**
@@ -19,6 +20,8 @@ export class BaseEditComponent extends BaseComponent {
      */
     item: any = null;
 
+    loading: boolean;
+
 
     service: any = null;
 
@@ -36,12 +39,14 @@ export class BaseEditComponent extends BaseComponent {
             this.setItem(id);
         }
 
-        this.generateForm();
     }
 
-    setItem(id: any) {
-        this.service.getById(id).subscribe(result => {
+    async setItem(id: any) {
+        this.loading = true;
+        await this.service.getById(id).subscribe(result => {
             this.item = result;
+            this.generateForm();
+            this.loading = false;
         }, err => {
             console.log(err);
         });

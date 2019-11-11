@@ -1,14 +1,23 @@
 export class Telefone {
     public id: number;
-    public countryCode: string;
+    public codigoPais: string;
     public ddd: string;
-    public number: string
+    public numero: string
     public pessoaId: number
 
     constructor(pessoaId: number, countryCode: string, ddd: string, number: string){
         this.pessoaId = pessoaId;
-        this.countryCode = countryCode;
+        this.codigoPais = countryCode;
         this.ddd = ddd;
-        this.number = number;
+        this.numero = number;
+    }
+
+    getJSONRepr(){
+        return {
+            "id": this.id,
+            "codigoPais": this.codigoPais,
+            "ddd": this.ddd,
+            "numero": this.numero,
+        }
     }
 }
